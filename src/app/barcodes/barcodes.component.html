@@ -1,0 +1,755 @@
+<div class="barcodeDash">
+  <ng-template #elseTemplate>
+    <mat-progress-bar mode="determinate" value="0"></mat-progress-bar>
+  </ng-template>
+  <div class="barcodes-content">
+    <div class="barcodes">
+      <div style="width: 98%; margin-top: 10%">
+        <div class="barcode-edit" *ngIf="addform == true">
+          <mat-icon (click)="addform = false; createBarcode()">check</mat-icon>
+          <mat-icon (click)="addform = false">settings_backup_restore</mat-icon>
+          <mat-form-field [style.width.px]=100 appearance="fill">
+            <mat-label>Add Location</mat-label>
+            <input [ngModelOptions]="{ standalone: true }" [(ngModel)]="add.location" type="text" matInput
+              placeholder="Add Location" />
+          </mat-form-field>
+
+          <mat-form-field [style.width.px]=100 appearance="fill">
+            <mat-label>Add StockID</mat-label>
+            <input [ngModelOptions]="{ standalone: true }" [(ngModel)]="add.stockid" type="text" matInput
+              placeholder="Add StockID" />
+          </mat-form-field>
+
+          <mat-form-field [style.width.px]=100 appearance="fill">
+            <mat-label>Add Code</mat-label>
+            <input [ngModelOptions]="{ standalone: true }" [(ngModel)]="add.barcode" type="text" matInput
+              placeholder="Add Code" />
+          </mat-form-field>
+
+          <mat-form-field [style.width.px]=100 appearance="fill">
+            <mat-label>Old_quantity</mat-label>
+            <input [ngModelOptions]="{ standalone: true }" [(ngModel)]="add.old_quantity" type="number" matInput
+              placeholder="Old_quantity" />
+          </mat-form-field>
+
+          <mat-form-field [style.width.px]=100 appearance="fill">
+            <mat-label>Userid</mat-label>
+            <input [ngModelOptions]="{ standalone: true }" [(ngModel)]="add.user_id" type="text" matInput
+              placeholder="Userid" />
+          </mat-form-field>
+
+          <mat-form-field [style.width.px]=100 appearance="fill">
+            <mat-label>Qty</mat-label>
+            <input [ngModelOptions]="{ standalone: true }" [(ngModel)]="add.quantity" type="number" matInput
+              placeholder="Qty" />
+          </mat-form-field>
+
+          <mat-form-field [style.width.px]=100 appearance="fill">
+            <mat-label>UserID</mat-label>
+            <input [ngModelOptions]="{ standalone: true }" [(ngModel)]="add.user_id1" type="text" matInput
+              placeholder="UserID" />
+          </mat-form-field>
+
+          <mat-form-field [style.width.px]=100 appearance="fill">
+            <mat-label>QTY</mat-label>
+            <input [ngModelOptions]="{ standalone: true }" [(ngModel)]="add.quantity1" type="number" matInput
+              placeholder="QTY" />
+          </mat-form-field>
+        </div>
+
+        <div class="headOption">
+          <div>
+            <mat-menu #dropdownMenuOne="matMenu">
+              <div class="customize">
+                <button mat-menu-item [value]="user" ng-model="recom.demo" (click)="sortValidate(user)"
+                  *ngFor="let user of validateList">
+                  {{ user }}
+                </button>
+              </div>
+            </mat-menu>
+            <mat-menu #dropdownMenuvalid="matMenu">
+              <div class="customize">
+                <button mat-menu-item (click)="setValid('Valid')" style="color: #5fc041" value="Valid">
+                  Valid
+                </button>
+                <button mat-menu-item (click)="setValid('Not Valid')" value="Not Valid">
+                  Not Valid
+                </button>
+                <button mat-menu-item (click)="setValid('Wrong')" style="color: #0628a5" value="Wrong">
+                  Wrong
+                </button>
+                <button mat-menu-item (click)="setValid('Error')" style="color: #c70006" value="Error">
+                  Error
+                </button>
+                <button mat-menu-item (click)="setValid('All')" style="color: #0785f1" value="All">
+                  All
+                </button>
+                <button mat-menu-item (click)="setValid('Ok')" value="Ok">
+                  Ok
+                </button>
+              </div>
+            </mat-menu>
+            <button (click)="updateStockID()" mat-stroked-button value="Update STID" style="
+                border: 1px solid #100e0e7d;
+                border-radius: 40px;
+                margin-inline: 10px;
+              ">
+              <span> Update STID</span>
+            </button>
+            <button (click)="Recalculate()" mat-stroked-button value="Recalculate" style="
+                border: 1px solid #100e0e7d;
+                border-radius: 40px;
+                margin-inline: 10px;
+              ">
+              <span> Recalculate</span>
+            </button>
+            <button (click)="Download()" mat-stroked-button value="Export to csv" style="
+                border: 1px solid #100e0e7d;
+                border-radius: 40px;
+                margin-inline: 10px;
+              ">
+              <span> Export to csv</span>
+            </button>
+            <button (click)="addform = true" mat-stroked-button value="Add Barcode" style="
+                border: 1px solid #100e0e7d;
+                border-radius: 40px;
+                margin-inline: 10px;
+              ">
+              <span> Add Barcode</span>
+              <mat-icon [ngStyle]="{ color: '#100e0e7d' }">add_circle_outline</mat-icon>
+            </button>
+            <button (click)="resetFilter()" mat-stroked-button value="Reset Filter" style="
+                border: 1px solid #e85524;
+                border-radius: 40px;
+                margin-inline: 10px;
+              ">
+              <span> Reset Filter</span>
+              <mat-icon [ngStyle]="{ color: '#100e0e7d' }">refresh</mat-icon>
+            </button>
+            <button (click)="applyFilter()" mat-stroked-button value="Apply Filter" style="
+                border: 1px solid #e85524;
+                border-radius: 40px;
+                margin-inline: 10px;
+              ">
+              <span> Apply Filter</span>
+              <mat-icon [ngStyle]="{ color: '#100e0e7d' }">search</mat-icon>
+            </button>
+          </div>
+          <div>
+            <mat-button-toggle-group style="margin-inline: 10px">
+              <mat-button-toggle class="split-button-1" (click)="setValid('Valid')">Valid
+              </mat-button-toggle>
+              <mat-button-toggle class="split-button-1 drop-down-button drop_down"
+                [matMenuTriggerFor]="dropdownMenuvalid">
+                <mat-icon [ngStyle]="{ color: 'white' }">arrow_drop_down</mat-icon>
+              </mat-button-toggle>
+            </mat-button-toggle-group>
+            <mat-button-toggle-group style="margin-inline: 10px">
+              <mat-button-toggle class="split-button-1" (click)="sortValidate(validateList[0])">{{ validateList[0] }}
+              </mat-button-toggle>
+              <mat-button-toggle class="split-button-1 drop-down-button drop_down"
+                [matMenuTriggerFor]="dropdownMenuOne">
+                <mat-icon [ngStyle]="{ color: 'white' }">arrow_drop_down</mat-icon>
+              </mat-button-toggle>
+            </mat-button-toggle-group>
+
+            <mat-menu #appMenu="matMenu">
+              <mat-option *ngFor="let user of userList" [value]="user">
+                <mat-checkbox value="checked" (click)="sortUser(user)" color="primary">
+                  <mat-icon [ngStyle]="{ color: 'black' }">person</mat-icon>
+                </mat-checkbox>
+                {{ user }}
+              </mat-option>
+            </mat-menu>
+
+            <button mat-icon-button [matMenuTriggerFor]="appMenu" [matMenuTriggerData]="{ name: 'Sally' }">
+              <mat-icon [ngStyle]="{ color: '#5fc041' }" style="width: 50px; height: 34px; font-size: 40px;">people
+              </mat-icon>
+            </button>
+          </div>
+        </div>
+
+        <mat-menu #dd="matMenu" [overlapTrigger]="false"> </mat-menu>
+        <table datatable [dtOptions]="dtOptions" class="row-border hover" id="barcodes" [width]="100"
+          style="width: 100%" *ngIf="barcodes && barcodes.length > 0">
+          <tr class="searchHead">
+            <ng-container *ngFor="let location of searchfilters.locations">
+              <th class=" footSticky">
+                <mat-form-field [style.width.px]=90 appearance="fill">
+                  <mat-label>From</mat-label>
+                  <input class="column-filter" [ngModelOptions]="{ standalone: true }" [(ngModel)]="location.from"
+                    type="text" matInput id="0" value="location.from" placeholder="Search From" />
+                </mat-form-field>
+              </th>
+              <th class=" footSticky">
+                <mat-form-field appearance="fill" [style.width.px]=90>
+                  <mat-label>To</mat-label>
+                  <input class="column-filter" [ngModelOptions]="{ standalone: true }" [(ngModel)]="location.to" id="1"
+                    matInput placeholder="Search To" name="To" value="location.to" />
+                </mat-form-field>
+              </th>
+            </ng-container>
+            <ng-container *ngFor="let barcode of searchfilters.barcodes">
+              <th>
+                <mat-form-field appearance="fill" [style.width.px]=100>
+                  <mat-label>Barcode</mat-label>
+                  <input class="column-filter" [ngModelOptions]="{ standalone: true }" [(ngModel)]="barcode.barcode"
+                    type="text" placeholder="Search Barcode" id="2" name="Barcode" matInput placeholder="Barcode" />
+                </mat-form-field>
+              </th>
+            </ng-container>
+            <th>
+              <form style="display: flex">
+                <mat-form-field appearance="fill" [style.width.px]=100>
+                  <mat-label>OldQTY</mat-label>
+                  <input id="filterValue3" class="column-filter" class="qty" [ngModelOptions]="{ standalone: true }"
+                    [(ngModel)]="searchfilters.oldqty" name="Oldqty" matInput placeholder="Search OldQTY" type="text" />
+                </mat-form-field>
+                <mat-select id="filterOperator3" name="oldqtyopt" class="slk column-filter matSelect"
+                  [(ngModel)]="searchfilters.oldqtyopt">
+                  <mat-option *ngFor="let operator of operators" [value]="operator.value"><p>{{operator.operator}}</p>
+                  </mat-option>
+                </mat-select>
+              </form>
+            </th>
+            <ng-container *ngIf="user1columns=='1'">
+
+
+              <th>
+                <mat-form-field appearance="fill" [style.width.px]=100>
+                  <mat-label>User1</mat-label>
+                  <mat-select class="column-filter" (selectionChange)="setUser($event.value)" id="4">
+                    <mat-option>ALL</mat-option>
+                    <mat-option value="{{ user.id }}" *ngFor="let user of users">{{ user.userid }}</mat-option>
+                  </mat-select>
+                </mat-form-field>
+              </th>
+              <th>
+                <form style="display: flex">
+                  <mat-form-field appearance="fill" [style.width.px]=100>
+                    <mat-label>QTY1</mat-label>
+                    <input class="qty column-filter" [ngModelOptions]="{ standalone: true }"
+                      [(ngModel)]="searchfilters.qty" name="QTY1" matInput placeholder="Search QTY1" />
+                  </mat-form-field>
+                  <mat-select [(ngModel)]="searchfilters.qtyopt" [ngModelOptions]="{ standalone: true }"
+                    class="slk column-filter matSelect">
+                    <mat-option *ngFor="let operator of operators" [value]="operator.value"><p>{{operator.operator}}</p>
+                    </mat-option>
+                  </mat-select>
+                </form>
+              </th>
+              <th>
+                <form style="display: flex">
+                  <mat-form-field appearance="fill" [style.width.px]=100>
+                    <mat-label>DIF1</mat-label>
+                    <input class="qty column-filter" [ngModelOptions]="{ standalone: true }"
+                      [(ngModel)]="searchfilters.dif" matInput placeholder="DIF1" name="DIF" />
+                  </mat-form-field>
+                  <mat-select class="slk column-filter matSelect" [(ngModel)]="searchfilters.difopt"
+                    [ngModelOptions]="{ standalone: true }">
+                    <mat-option *ngFor="let operator of operators" [value]="operator.value"><p>{{operator.operator}}</p>
+                    </mat-option>
+                  </mat-select>
+                </form>
+              </th>
+              <th style="width: 50px;"></th>
+            </ng-container>
+            <ng-container *ngIf="user2columns=='1'">
+              <th>
+                <mat-form-field appearance="fill" [style.width.px]=100>
+                  <mat-label>User2</mat-label>
+                  <mat-select class="column-filter" (selectionChange)="setUser2($event.value)">
+                    <mat-option>ALL</mat-option>
+                    <mat-option value="{{ user.id }}" *ngFor="let user of users">{{ user.userid }}</mat-option>
+                  </mat-select>
+                </mat-form-field>
+              </th>
+              <th [ngStyle]="{ display: user2columns ? '' : 'none' }">
+                <form style="display: flex">
+                  <mat-form-field appearance="fill" [style.width.px]=100>
+                    <mat-label>QTY2</mat-label>
+                    <input class="qty column-filter" [ngModelOptions]="{ standalone: true }"
+                      [(ngModel)]="searchfilters.qty1" matInput placeholder="Search QTY2" name="QTY2" />
+                  </mat-form-field>
+                  <mat-select [ngModelOptions]="{ standalone: true }" [(ngModel)]="searchfilters.qtyopt1"
+                    class="slk column-filter matSelect">
+                    <mat-option *ngFor="let operator of operators" [value]="operator.value"><p>{{operator.operator}}</p>
+                    </mat-option>
+                  </mat-select>
+                </form>
+              </th>
+              <th [ngStyle]="{ display: user2columns ? '' : 'none' }">
+                <form style="display: flex">
+                  <mat-form-field appearance="fill" [style.width.px]=100>
+                    <mat-label>DIF2</mat-label>
+                    <input class="qty column-filter" [ngModelOptions]="{ standalone: true }"
+                      [(ngModel)]="searchfilters.dif1" matInput placeholder="Search DIF2" name="DIF2" />
+                  </mat-form-field>
+                  <mat-select class="slk column-filter matSelect" [ngModelOptions]="{ standalone: true }"
+                    [(ngModel)]="searchfilters.difopt1">
+                    <mat-option *ngFor="let operator of operators" [value]="operator.value"><p>{{operator.operator}}</p>
+                    </mat-option>
+                  </mat-select>
+                </form>
+              </th>
+            </ng-container>
+            <ng-container *ngIf="allcolumns=='1'">
+              <th  style="width: 50px;"></th>
+              <th >
+                <form style="display: flex">
+                  <mat-form-field appearance="fill" [style.width.px]=100>
+                    <mat-label>ALL QTY</mat-label>
+                    <input class="qty column-filter" [ngModelOptions]="{ standalone: true }"
+                      [(ngModel)]="searchfilters.allqty" matInput placeholder="Search ALL QTY" name="ALL_QTY" />
+                  </mat-form-field>
+  
+                  <mat-select class="slk column-filter matSelect" [ngModelOptions]="{ standalone: true }"
+                    [(ngModel)]="searchfilters.allqtyopt">
+                    <mat-option *ngFor="let operator of operators" [value]="operator.value"><p>{{operator.operator}}</p>
+                    </mat-option>
+                  </mat-select>
+                </form>
+              </th>
+              <th >
+                <form style="display: flex">
+                  <mat-form-field appearance="fill" [style.width.px]=100>
+                    <mat-label>ALL Old QTY</mat-label>
+                    <input class="column-filter " [ngModelOptions]="{standalone: true}"
+                      [(ngModel)]="searchfilters.alloldqty" matInput placeholder="Search OLD QTY" name="OLD_QTY" />
+                  </mat-form-field>
+  
+                  <mat-select class="slk column-filter matSelect" [ngModelOptions]="{ standalone: true }"
+                    [(ngModel)]="searchfilters.alloldqtyopt">
+                    <mat-option *ngFor="let operator of operators" [value]="operator.value"><p>{{operator.operator}}</p>
+                    </mat-option>
+                  </mat-select>
+                </form>
+              </th>
+              <th >
+                <form style="display: flex">
+                  <mat-form-field appearance="fill" [style.width.px]=100>
+                    <mat-label>ALL DIF</mat-label>
+                    <input class="qty column-filter" [ngModelOptions]="{ standalone: true }"
+                      [(ngModel)]="searchfilters.alldif" matInput placeholder="Search DIF QTY" name="DIF_QTY" />
+                  </mat-form-field>
+  
+                  <mat-select [ngClass]="[mode ? 'matSelect': '']" class="slk column-filter matSelect" [ngModelOptions]="{ standalone: true }"
+                    [(ngModel)]="searchfilters.alldifopt">
+                    <mat-option *ngFor="let operator of operators" [value]="operator.value"><p>{{operator.operator}}</p>
+                    </mat-option>
+                  </mat-select>
+                </form>
+              </th>
+
+            </ng-container>
+
+            <ng-container *ngIf="user1columns=='1'" >
+
+              <th class="last_scan" *ngFor="let scandate of searchfilters.scandates">
+                <mat-form-field appearance="fill" [style.width.px]=100 class="example-form-field">
+                  <mat-label>Date1</mat-label>
+                  <input class="column-filter" matInput [matDatepicker]="datepicker"
+                    [ngModelOptions]="{ standalone: true }" [(ngModel)]="scandate.from" placeholder="Scan Date1" id="15"
+                    name="data1" (click)="picker.open()" />
+                  <mat-datepicker #picker></mat-datepicker>
+                  <mat-datepicker-toggle matSuffix [for]="datepicker"></mat-datepicker-toggle>
+                  <mat-datepicker #datepicker>
+                    <mat-datepicker-actions>
+                      <button mat-button matDatepickerCancel>Cancel</button>
+                      <button mat-raised-button color="primary" matDatepickerApply>
+                        Apply
+                      </button>
+                    </mat-datepicker-actions>
+                  </mat-datepicker>
+                </mat-form-field>
+              </th>
+            </ng-container>
+
+            <ng-container *ngIf="user2columns=='1'&&mode=='all'" >
+              <th class="filter"*ngFor="let scandate of searchfilters.scandates1">
+                <mat-form-field appearance="fill" [style.width.px]=100 class="example-form-field">
+                  <mat-label>Data2</mat-label>
+                  <input class="column-filter" matInput [matDatepicker]="datepicker"
+                    [ngModelOptions]="{ standalone: true }" [(ngModel)]="scandate.from" placeholder="Scan Date2" id="16"
+                    name="data2" (click)="picker.open()" />
+                  <mat-datepicker #picker></mat-datepicker>
+                  <mat-datepicker-toggle matSuffix [for]="datepicker"></mat-datepicker-toggle>
+                  <mat-datepicker #datepicker>
+                    <mat-datepicker-actions>
+                      <button mat-button matDatepickerCancel>Cancel</button>
+                      <button mat-raised-button color="primary" matDatepickerAp ply>
+                        Apply
+                      </button>
+                    </mat-datepicker-actions>
+                  </mat-datepicker>
+                </mat-form-field>
+              </th>
+            </ng-container>
+          </tr>
+
+
+
+
+          <thead>
+            <tr class="tblHead">
+              <th class="location ">
+                <p>Location</p>
+                <p></p>
+              </th>
+
+              <th class="stockid ">
+                <p>StockID</p>
+              </th>
+              <th class="code">
+                <p>BarCode</p>
+              </th>
+              <th class="old_quantity">
+                <p>OLD QTY</p>
+              </th>
+              <ng-container *ngIf="user1columns=='1'">
+                <th class="userid user1columns">
+                  <p>USER</p>
+                </th>
+                <th class="qty user1columns">
+                  <p>QTY1</p>
+                </th>
+                <th class="dif qty user1columns">
+                  <p>DIF1</p>
+                </th>
+                <th class="dif qty user1columns">
+                  <p>V</p>
+                </th>
+              </ng-container>
+              <ng-container *ngIf="mode=='compare'&&user2columns=='1'">
+                <th class="userid user2columns">
+                  <p>USER2</p>
+                </th>
+                <th class="qty user2columns">
+                  <p>QTY2</p>
+                </th>
+                <th class="dif qty user2columns">
+                  <p>DIF2</p>
+                </th>
+                <th class="dif qty user2columns">
+                </th>
+              </ng-container>
+              <ng-container *ngIf="mode=='all'&&user2columns=='1'">
+                <th class="userid user2columns">
+                  <p>USER2</p>
+                </th>
+                <th class="qty user2columns">
+                  <p>QTY2</p>
+                </th>
+                <th class="dif qty user2columns">
+                  <p>DIF2</p>
+                </th>
+                <th class="dif qty user2columns">
+                  <p>V</p>
+                </th>
+              </ng-container>
+              <ng-container *ngIf="allcolumns=='1'">
+                <th class="allqty allcolumns">
+                  <p>ALL QTY</p>
+                </th>
+                <th class="allold_quantity allcolumns">
+                  <p>ALL OLD QTY</p>
+                </th>
+                <th class="alldif allcolumns">
+                  <p>ALL DIF</p>
+                </th>
+              </ng-container>
+              <ng-container *ngIf="user1columns=='1'" class="last_scan">
+                <th class="user1columns">
+                  <p>SCAN DATE1</p>
+                </th>
+              </ng-container>
+              <<ng-container *ngIf="mode=='all'&&user2columns=='1'">
+                <th class="user2columns">
+                  <p>SCAN DATE2</p>
+                </th>
+                </ng-container>
+            </tr>
+          </thead>
+
+          <tbody class="tbody">
+            <tr *ngFor="let barcode of barcodes; let i = index" [class.barwarning]="
+                barcode.stockid != '' && barcode.original != '1'
+              " [class.barok]="barcode.original == '1'" [class.barerror]="barcode.stockid == ''">
+              <ng-container *ngIf="barcode.editform == 1">
+                <td [style.width.px]=90>
+
+                  <mat-form-field [style.width.px]=90 appearance="fill" *ngIf="barcode.original != 1">
+                    <mat-label>Location</mat-label>
+                    <input [ngModelOptions]="{ standalone: true }" [(ngModel)]="barcode.location" type="text" matInput
+                      value="barcode.location" placeholder="Location" />
+                  </mat-form-field>
+                </td>
+                <td [style.width.px]=90>
+                  <mat-form-field [style.width.px]=90 appearance="fill" *ngIf="barcode.original != 1">
+                    <mat-label>stockid</mat-label>
+                    <input [ngModelOptions]="{ standalone: true }" [(ngModel)]="barcode.stockid" type="text" matInput
+                      value="barcode.stockid" placeholder="stockid" />
+                  </mat-form-field>
+                </td>
+                <td [style.width.px]=100>
+                  <mat-form-field [style.width.px]=100 appearance="fill" *ngIf="barcode.original != 1">
+                    <mat-label>barcode</mat-label>
+                    <input [ngModelOptions]="{ standalone: true }" [(ngModel)]="barcode.barcode" type="text" matInput
+                      value="barcode.barcode" placeholder="barcode" />
+                  </mat-form-field>
+                </td>
+                <td [style.width.px]=100>{{ barcode.old_quantity }}</td>
+                <td [style.width.px]=100>
+                  <mat-form-field [style.width.px]=100 appearance="fill" *ngIf="barcode.original != 1">
+                    <mat-label>user_id</mat-label>
+                    <input [ngModelOptions]="{ standalone: true }" [(ngModel)]="barcode.user_id" type="text" matInput
+                      value="barcode.user_id" placeholder="user_id" />
+                  </mat-form-field>
+                </td>
+                <td [style.width.px]=100>
+                  <mat-form-field [style.width.px]=100 appearance="fill" *ngIf="barcode.original != 1">
+                    <mat-label>quantity</mat-label>
+                    <input [ngModelOptions]="{ standalone: true }" [(ngModel)]="barcode.quantity" type="number" matInput
+                      value="barcode.quantity" placeholder="quantity" maxlength="6" />
+                  </mat-form-field>
+                </td>
+
+                <td [style.width.px]=100>
+                  <mat-form-field [style.width.px]=100 appearance="fill" *ngIf="barcode.original != 1">
+                    <mat-label>quantity1</mat-label>
+                    <input [ngModelOptions]="{ standalone: true }" [(ngModel)]="barcode.quantity1" maxlength="6"
+                      type="number" matInput value="barcode.quantity1" placeholder="quantity1" />
+                  </mat-form-field>
+                </td>
+                <td [style.width.px]=100>
+                  <mat-form-field [style.width.px]=100 appearance="fill" *ngIf="barcode.original != 1">
+                    <mat-label>user_id1</mat-label>
+                    <input [ngModelOptions]="{ standalone: true }" [(ngModel)]="barcode.user_id1" type="text" matInput
+                      value="barcode.user_id1" placeholder="user_id1" />
+                  </mat-form-field>
+                </td>
+
+                <td>
+                  <mat-icon (click)="barcode.editform=0; barcode.editpopup='0'; updateBarcode(barcode,i)">check
+                  </mat-icon>
+                  <mat-icon (click)="barcode.editform=0; barcode.editpopup='0'; getBarcode(barcode,i)">
+                    settings_backup_restore
+                  </mat-icon>
+                </td>
+              </ng-container>
+              <ng-container class="deletepopup" *ngIf="barcode.deletepopup==1">
+                <td class="location">
+
+                  {{barcode.location}}
+                </td>
+                <td class="stockid">
+
+                  {{barcode.stockid}}
+
+
+                </td>
+                <td class="code">
+                  {{barcode.barcode}}
+                </td>
+                <td class="old_quantity">
+                  {{barcode.old_quantity}}
+
+                </td>
+
+                <td class="userid">
+                  {{barcode.user_id}}
+
+
+                </td>
+                <td class="qty">
+                  {{barcode.quantity}}
+
+                </td>
+
+
+                <td class="userid " *ngIf="mode=='all'">
+                  {{barcode.user_id1}}
+
+                </td>
+                <td class="qty" *ngIf="mode=='all'">
+                  {{barcode.quantity1}}
+
+                </td>
+                <td>
+                  <div class="okpopup">
+                    <mat-icon (click)="barcode.editform=0; barcode.editpopup='0'; deleteBarcode(barcode)">check
+                    </mat-icon>
+                    <mat-icon (click)="barcode.deletepopup=0; barcode.editpopup='0';">settings_backup_restore</mat-icon>
+                  </div>
+                </td>
+              </ng-container>
+              <ng-container class="barcode" [class.barwarning]="barcode.stockid!=''&&barcode.original!='1'"
+                [class.barok]="barcode.original=='1'" [class.barerror]="barcode.stockid==''">
+                <td [style.width.px]=100 class="location" (click)="setLocation(barcode.location)">
+                  {{ barcode.location }}
+                </td>
+
+                <td [style.width.px]=100 class="stockid" (click)="openPopup(barcode)">
+                  {{ barcode.stockid }}
+                  <div style="display: flex; justify-content: center;" class="editpopup" *ngIf="barcode.editpopup=='1'">
+                    <mat-icon (click)="barcode.editform=1;barcode.editpopup='0'">
+                      mode_edit</mat-icon>
+                    <mat-icon (click)="barcode.deletepopup=1;barcode.editpopup='0';">
+                      delete_sweep</mat-icon>
+                  </div>
+                </td>
+
+                <td class="code" (click)="setBarcode(barcode.barcode)">
+                  {{ barcode.barcode }}
+                </td>
+
+                <td [style.width.px]=100 class="old_quantity">
+                  {{ barcode.old_quantity }}
+                </td>
+                <ng-container *ngIf="user1columns=='1'">
+                  <td [style.width.px]=100 class="userid"
+                    [class.yellow]="barcode.quantity!=barcode.old_quantity&&barcode.stockid!=''&&barcode.dif<'0'&&barcode.user_id!=''&&barcode.user_id!=null"
+                    [class.lightblue]="barcode.quantity!=barcode.old_quantity&&barcode.stockid!=''&&barcode.dif>'0'&&barcode.user_id!=''&&barcode.user_id!=null"
+                    [class.green]="(barcode.quantity==barcode.outqty&&barcode.outqty>=0||barcode.verified==1)&&barcode.user_id!=''&&barcode.user_id!=null">
+                    {{ barcode.user_id }}
+                  </td>
+
+                  <td [style.width.px]=100 class="qty"
+                    [class.yellow]="barcode.quantity!=barcode.old_quantity&&barcode.stockid!=''&&barcode.dif<'0'&&barcode.user_id!=''&&barcode.user_id!=null"
+                    [class.lightblue]="barcode.quantity!=barcode.old_quantity&&barcode.stockid!=''&&barcode.dif>'0'&&barcode.user_id!=''&&barcode.user_id!=null"
+                    [class.green]="(barcode.quantity==barcode.outqty&&barcode.outqty>=0||barcode.verified==1)&&barcode.user_id!=''&&barcode.user_id!=null">
+                    {{ barcode.quantity }}
+                  </td>
+
+                  <td [style.width.px]=100 class="dif qty"
+                    [class.yellow]="barcode.quantity!=barcode.old_quantity&&barcode.stockid!=''&&barcode.dif<'0'&&barcode.user_id!=''&&barcode.user_id!=null"
+                    [class.lightblue]="barcode.quantity!=barcode.old_quantity&&barcode.stockid!=''&&barcode.dif>'0'&&barcode.user_id!=''&&barcode.user_id!=null"
+                    [class.green]="(barcode.quantity==barcode.outqty&&barcode.outqty>=0||barcode.verified==1)&&barcode.user_id!=''&&barcode.user_id!=null">
+                    {{ barcode.dif }}
+
+                  </td>
+
+                  <td class="userid" [style.width.px]=100
+                    [class.yellow]="barcode.quantity!=barcode.old_quantity&&barcode.stockid!=''&&barcode.dif<'0'&&barcode.user_id!=''&&barcode.user_id!=null"
+                    [class.lightblue]="barcode.quantity!=barcode.old_quantity&&barcode.stockid!=''&&barcode.dif>'0'&&barcode.user_id!=''&&barcode.user_id!=null"
+                    [class.green]="(barcode.quantity==barcode.outqty&&barcode.outqty>=0||barcode.verified==1)&&barcode.user_id!=''&&barcode.user_id!=null"
+                    *ngIf="user1columns == '1'">
+                    <input *ngIf="barcode.stockid!=''&&mode=='all'" (change)="Valid($event, barcode)" type="checkbox"
+                      [checked]="barcode.outqty==barcode.quantity&&barcode.quantity>=0" />
+
+                    <input *ngIf="barcode.stockid!=''&&mode=='compare'" (change)="Apply1($event, barcode)"
+                      type="checkbox" [checked]="barcode.verified==1" />
+                  </td>
+                </ng-container>
+
+                <ng-container *ngIf="mode=='compare'">
+                  <td [style.width.px]=100 class="userid">
+                    {{ barcode.uuser_id }}
+                  </td>
+
+                  <td [style.width.px]=100 class="qty">
+                    {{ barcode.uquantity }}
+                  </td>
+
+                  <td [style.width.px]=100 class="dif qty">
+                    {{ barcode.udif }}
+                  </td>
+
+                  <td [style.width.px]=100 class="userid">
+                    <input *ngIf="barcode.uuser_id&&mode=='compare'&&barcode.stockid!=''"
+                      (change)="Apply2($event,barcode)" type="checkbox" [checked]="barcode.uverified==1">
+                  </td>
+                </ng-container>
+                <ng-container *ngIf="mode=='all'&&user2columns=='1'">
+
+                  <td [style.width.px]=100 class="userid"
+                    [class.yellow]="barcode.quantity1!=barcode.old_quantity&&barcode.user_id1!=''&&barcode.user_id1!=null&&barcode.stockid!=''&&barcode.dif1<'0'&&barcode.user_id1!=''&&barcode.user_id1!=null"
+                    [class.lightblue]="barcode.quantity1!=barcode.old_quantity&&barcode.stockid!=''&&barcode.dif1>'0'&&barcode.user_id1!=''&&barcode.user_id1!=null"
+                    [class.green]="(barcode.quantity==barcode.outqty&&barcode.outqty>=0||barcode.verified==1)&&barcode.user_id1!=''&&barcode.user_id1!=null">
+                    {{ barcode.user_id1 }}
+                  </td>
+
+                  <td [style.width.px]=100 class="qty"
+                    [class.yellow]="barcode.quantity1!=barcode.old_quantity&&barcode.user_id1!=''&&barcode.user_id1!=null&&barcode.stockid!=''&&barcode.dif1<'0'&&barcode.user_id1!=''&&barcode.user_id1!=null"
+                    [class.lightblue]="barcode.quantity1!=barcode.old_quantity&&barcode.stockid!=''&&barcode.dif1>'0'&&barcode.user_id1!=''&&barcode.user_id1!=null"
+                    [class.green]="(barcode.quantity==barcode.outqty&&barcode.outqty>=0||barcode.verified==1)&&barcode.user_id1!=''&&barcode.user_id1!=null">
+                    <ng-container *ngIf="barcode.user_id1!=''&&barcode.user_id1!=null">
+                      <span>{{ barcode.quantity1 }}</span>
+                    </ng-container>
+                  </td>
+
+                  <td class="dif qty" [style.width.px]=100
+                    [class.yellow]="barcode.quantity1!=barcode.old_quantity&&barcode.user_id1!=''&&barcode.user_id1!=null&&barcode.stockid!=''&&barcode.dif1<'0'&&barcode.user_id1!=''&&barcode.user_id1!=null"
+                    [class.lightblue]="barcode.quantity1!=barcode.old_quantity&&barcode.stockid!=''&&barcode.dif1>'0'&&barcode.user_id1!=''&&barcode.user_id1!=null"
+                    [class.green]="(barcode.quantity==barcode.outqty&&barcode.outqty>=0||barcode.verified==1)&&barcode.user_id1!=''&&barcode.user_id1!=null">
+                    <ng-container *ngIf="barcode.user_id1!=''&&barcode.user_id1!=null">
+                      <span>{{ barcode.dif1 }}</span>
+                    </ng-container>
+
+                  </td>
+                  <td class="userid"
+                    [class.yellow]="barcode.quantity1!=barcode.old_quantity&&barcode.user_id1!=''&&barcode.user_id1!=null&&barcode.stockid!=''&&barcode.dif1<'0'&&barcode.user_id1!=''&&barcode.user_id1!=null"
+                    [class.lightblue]="barcode.quantity1!=barcode.old_quantity&&barcode.stockid!=''&&barcode.dif1>'0'&&barcode.user_id1!=''&&barcode.user_id1!=null"
+                    [class.green]="(barcode.quantity==barcode.outqty&&barcode.outqty>=0||barcode.verified==1)&&barcode.user_id1!=''&&barcode.user_id1!=null"
+                    [style.width.px]=100>
+                    <input *ngIf="barcode.user_id1!=''&&barcode.user_id1!=null&&barcode.stockid!=''"
+                      (change)="Valid2($event, barcode)" type="checkbox"
+                      [checked]="barcode.outqty==barcode.quantity1&&barcode.quantity1>=0">
+                  </td>
+                </ng-container>
+                <ng-container *ngIf="allcolumns=='1'">
+                  <td [style.width.px]=100 class="allqty">
+                    {{ barcode.allquantity }}
+                  </td>
+
+                  <td [style.width.px]=100 class="allold_quantity">
+                    {{ barcode.allold_quantity }}
+                  </td>
+
+                  <td [style.width.px]=100 class="alldif">
+                    {{ barcode.alldif }}
+                  </td>
+                </ng-container>
+
+                <td [style.width.px]=100 *ngIf="user1columns=='1'" class="last_scan">
+                  {{ barcode.last_scan }}
+                </td>
+                <ng-container *ngIf="mode=='all'&&user2columns=='1'">
+
+                  <td [style.width.px]=100 class="last_scan">
+                    {{ barcode.last_scan1 }}
+                  </td>
+                </ng-container>
+
+              </ng-container>
+            </tr>
+          </tbody>
+        </table>
+
+        <ul class="pagination">
+
+          <li *ngIf="startpage" class="paginate_button move">
+            <a (click)="selectPage(startpage)">&laquo;&laquo; First</a>
+          </li>
+          <li *ngIf="prevpage" class="paginate_button move">
+            <a (click)="selectPage(prevpage)"> &laquo; Prev</a>
+
+          </li>
+          <li [class.active]="page.page==current_page" *ngFor="let page of pages; let v=index" class="paginate_button">
+            <a (click)="selectPage(page.page)">{{page.page}}</a>
+
+          </li>
+          <li *ngIf="nextpage" class="paginate_button move">
+            <a (click)="selectPage(nextpage)"> Next &raquo;</a>
+
+          </li>
+          <li *ngIf="endpage" class="paginate_button move">
+            <a (click)="selectPage(endpage)"> Last &raquo;&raquo; </a>
+
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  
+</div>

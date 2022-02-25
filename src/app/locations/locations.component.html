@@ -1,0 +1,34 @@
+<div class="locations" style="margin-top: 10%;">
+  <div class="options">
+    <a (click)="open()">
+      <mat-icon [ngStyle]="{color: 'black'}">add_circle_outline</mat-icon>
+    </a>
+    <a (click)=" updatelocations()">
+      <mat-icon [ngStyle]="{color: 'black'}">replay</mat-icon>
+    </a>
+  </div>
+  
+  <table datatable [dtOptions]="dtOptions"  *ngIf="locations&&locations.length > 0">
+    <thead>
+      <tr class="location-title">
+        <th class="id-title">ID</th>
+        <th class="name">LOCATION</th>
+        <th class="total">TOTAL</th>
+        <th class="delete"></th>  
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let location of locations">
+        <td class="id">{{location.id}}</td>
+        <td class="name">{{location.title}}</td>
+        <td  class="total">{{location.total}}</td>
+        <td class="delete">
+          <button (click)=deleteLocation(location) class="action">
+            <mat-icon>delete_outline</mat-icon>
+          </button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+

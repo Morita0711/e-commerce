@@ -1,0 +1,196 @@
+.locations {
+  display: flex;
+  flex-wrap: wrap;
+  margin-left: -5px;
+  margin-right: -5px;
+}
+.locations .location:nth-child(odd) {
+  background: #eee;
+}
+.locations .location-title {
+  font-weight: bold;
+  line-height: 20px;
+  background: #04a6b7;
+}
+.locations .location-title div {
+  color: #fff;
+  font-size: 1.2em;
+  font-weight: bold;
+}
+.locations .location-title div a {
+  color: #fff;
+  font-weight: bold;
+}
+@media screen and (max-width: 992px) {
+  .locations .location-title {
+    display: none !important;
+  }
+}
+.locations .location,
+.locations .location-title {
+  border-bottom: 1px solid #c3c3c3;
+  display: flex;
+  flex-wrap: wrap;
+  margin-left: -5px;
+  margin-right: -5px;
+  box-sizing: border-box;
+  word-wrap: break-word;
+  margin-left: 5px;
+  margin-right: 5px;
+  width: calc(100% / 12 * 12 - 10px);
+  padding: 10px;
+}
+.locations .location .id-title,
+.locations .location-title .id-title {
+  box-sizing: border-box;
+  word-wrap: break-word;
+  margin-left: 5px;
+  margin-right: 5px;
+  width: calc(100% / 12 * 2 - 10px);
+  font-weight: bold;
+}
+.locations .location .name-title,
+.locations .location-title .name-title {
+  box-sizing: border-box;
+  word-wrap: break-word;
+  margin-left: 5px;
+  margin-right: 5px;
+  width: calc(100% / 12 * 2 - 10px);
+  font-weight: bold;
+}
+.locations .location .total-title,
+.locations .location-title .total-title {
+  box-sizing: border-box;
+  word-wrap: break-word;
+  margin-left: 5px;
+  margin-right: 5px;
+  width: calc(100% / 12 * 2 - 10px);
+  font-weight: bold;
+}
+.locations .location .link-title,
+.locations .location-title .link-title {
+  box-sizing: border-box;
+  word-wrap: break-word;
+  margin-left: 5px;
+  margin-right: 5px;
+  width: calc(100% / 12 * 1 - 10px);
+}
+.locations .location .id,
+.locations .location-title .id {
+  box-sizing: border-box;
+  word-wrap: break-word;
+  margin-left: 5px;
+  margin-right: 5px;
+  width: calc(100% / 12 * 2 - 10px);
+}
+.locations .location .name,
+.locations .location-title .name {
+  box-sizing: border-box;
+  word-wrap: break-word;
+  margin-left: 5px;
+  margin-right: 5px;
+  width: calc(100% / 12 * 2 - 10px);
+}
+.locations .location .total,
+.locations .location-title .total {
+  box-sizing: border-box;
+  word-wrap: break-word;
+  margin-left: 5px;
+  margin-right: 5px;
+  width: calc(100% / 12 * 2 - 10px);
+}
+.locations .location .link,
+.locations .location-title .link {
+  box-sizing: border-box;
+  word-wrap: break-word;
+  margin-left: 5px;
+  margin-right: 5px;
+  width: calc(100% / 12 * 1 - 10px);
+}
+.locations .location button,
+.locations .location-title button {
+  cursor: pointer;
+}
+.locations .location:hover {
+  background: #fffb00;
+}
+.locations .options {
+  box-sizing: border-box;
+  word-wrap: break-word;
+  margin-left: 5px;
+  margin-right: 5px;
+  width: calc(100% / 12 * 12 - 10px);
+  display: flex;
+  flex-wrap: wrap;
+  width: 100%;
+  justify-content: center;
+  justify-content: flex-start;
+}
+.locations .options a {
+  cursor: pointer;
+  padding: 10px;
+  font-size: 1.2em;
+}
+.locations .options a mat-icon {
+  color: #000;
+}
+.users-form {
+  display: flex;
+  flex-wrap: wrap;
+  margin-left: -5px;
+  margin-right: -5px;
+  position: fixed;
+  z-index: 10;
+  top: 0;
+  background: #fff;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  align-content: center;
+  justify-content: center;
+}
+.users-form .user {
+  display: flex;
+  flex-wrap: wrap;
+  margin-left: -5px;
+  margin-right: -5px;
+  max-width: 500px;
+  padding: 10px;
+}
+.users-form .user label {
+  box-sizing: border-box;
+  word-wrap: break-word;
+  margin-left: 5px;
+  margin-right: 5px;
+  width: calc(100% / 12 * 12 - 10px);
+  padding: 10px;
+  display: flex;
+  flex-wrap: wrap;
+  margin-left: -5px;
+  margin-right: -5px;
+  flex-wrap: nowrap;
+  flex-direction: column;
+}
+.users-form .user label input {
+  max-width: 300px;
+  font-size: 1.2em;
+  padding: 10px 10px;
+  margin: 10px;
+  border: 2px solid #06b755;
+  border-radius: 5px;
+  box-shadow: 3px 2px 1px 0px #ddd;
+  text-transform: uppercase;
+}
+.users-form .user label .btn {
+  font-weight: bold;
+  background: #06b755;
+  color: #fff;
+  font-size: 1.2em;
+  padding: 10px 10px;
+  margin: 10px;
+  border: 2px solid #06b755;
+  border-radius: 5px;
+  box-shadow: 3px 2px 1px 0px #ddd;
+  text-transform: uppercase;
+  width: 200px;
+}

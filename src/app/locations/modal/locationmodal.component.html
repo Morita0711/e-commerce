@@ -1,0 +1,13 @@
+<div class="user">
+  <label class="name">
+    <mat-form-field class="example-full-width" appearance="fill">
+        <mat-label>LOCATION</mat-label>
+        <textarea matInput [(ngModel)]="add.location" placeholder="LOCATION"></textarea>
+    </mat-form-field>
+  </label>
+
+  <label for="btn">
+    <button mat-stroked-button color="primary" class="btn" [mat-dialog-close]="add">Create location</button>
+    <button mat-stroked-button color="primary" class="btn" mat-dialog-close>Cancel</button>
+  </label>
+</div>

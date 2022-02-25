@@ -1,0 +1,61 @@
+/* You can add global styles to this file, and also import other style files */
+@import "https://fonts.googleapis.com/css?family=Roboto";
+@import "smart-grid.less";
+.font() {
+  font-family: Roboto;
+  font-size: 12px;
+  font-display: auto;
+}
+.reset();
+* {
+  box-sizing: border-box;
+  text-decoration: none;
+  color: #000;
+}
+
+* {
+  .font();
+}
+h1 {
+  width: 100%;
+  text-align: center;
+  text-transform: uppercase;
+  padding: 10px;
+  font-size: 2em;
+  font-weight: bold;
+}
+.pagination {
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  padding: 5px;
+}
+.paginate_button {
+  .row-flex-no();
+  width: unset;
+  cursor: pointer;
+  display: flex;
+  position: relative;
+}
+.paginate_button a {
+  width: 30px;
+  height: 30px;
+  justify-content: center;
+  align-content: center;
+  border-radius: 5px;
+  border: 2px solid #000;
+}
+.paginate_button.active a {
+  background: #01b050;
+}
+html,
+body {
+  height: 100%;
+}
+
+body {
+  background-size: cover;
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+}

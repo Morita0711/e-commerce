@@ -1,0 +1,285 @@
+.users {
+  display: flex;
+  flex-wrap: wrap;
+  margin-left: -5px;
+  margin-right: -5px;
+}
+.users .options {
+  box-sizing: border-box;
+  word-wrap: break-word;
+  margin-left: 5px;
+  margin-right: 5px;
+  width: calc(100% / 12 * 12 - 10px);
+  display: flex;
+  flex-wrap: wrap;
+  width: 100%;
+  justify-content: center;
+  justify-content: flex-start;
+}
+.users .options a {
+  padding: 10px;
+  font-size: 1.2em;
+}
+.users .options a mat-icon {
+  color: #000;
+}
+.users .user:nth-child(odd) {
+  background: #eee;
+}
+.users .user-title {
+  font-weight: bold;
+  line-height: 20px;
+  background: #04a6b7;
+}
+.users .user-title div {
+  color: #fff;
+  font-size: 1.2em;
+  font-weight: bold;
+}
+.users .user-title div a {
+  color: #fff;
+  font-weight: bold;
+}
+@media screen and (max-width: 992px) {
+  .users .user-title {
+    display: none!important;
+  }
+}
+.users .user,
+.users .user-title {
+  display: flex;
+  flex-wrap: wrap;
+  margin-left: -5px;
+  margin-right: -5px;
+  box-sizing: border-box;
+  word-wrap: break-word;
+  margin-left: 5px;
+  margin-right: 5px;
+  width: calc(100% / 12 * 12 - 10px);
+  padding: 10px;
+  border-bottom: 1px solid #c3c3c3;
+}
+.users .user .id,
+.users .user-title .id {
+  box-sizing: border-box;
+  word-wrap: break-word;
+  margin-left: 5px;
+  margin-right: 5px;
+  width: calc(100% / 12 * 1 - 10px);
+}
+@media screen and (max-width: 992px) {
+  .users .user .id,
+  .users .user-title .id {
+    width: calc(100% / 12 * 4 - 10px);
+  }
+}
+@media screen and (max-width: 992px) {
+  .users .user .id,
+  .users .user-title .id {
+    height: 30px;
+  }
+}
+.users .user .name,
+.users .user-title .name {
+  box-sizing: border-box;
+  word-wrap: break-word;
+  margin-left: 5px;
+  margin-right: 5px;
+  width: calc(100% / 12 * 1 - 10px);
+}
+@media screen and (max-width: 992px) {
+  .users .user .name,
+  .users .user-title .name {
+    width: calc(100% / 12 * 8 - 10px);
+  }
+}
+@media screen and (max-width: 992px) {
+  .users .user .name,
+  .users .user-title .name {
+    height: 30px;
+  }
+}
+.users .user .mode1,
+.users .user-title .mode1 {
+  box-sizing: border-box;
+  word-wrap: break-word;
+  margin-left: 5px;
+  margin-right: 5px;
+  width: calc(100% / 12 * 1 - 10px);
+}
+@media screen and (max-width: 992px) {
+  .users .user .mode1,
+  .users .user-title .mode1 {
+    width: calc(100% / 12 * 4 - 10px);
+  }
+}
+@media screen and (max-width: 992px) {
+  .users .user .mode1,
+  .users .user-title .mode1 {
+    height: 30px;
+  }
+}
+.users .user .mode2,
+.users .user-title .mode2 {
+  box-sizing: border-box;
+  word-wrap: break-word;
+  margin-left: 5px;
+  margin-right: 5px;
+  width: calc(100% / 12 * 1 - 10px);
+}
+@media screen and (max-width: 992px) {
+  .users .user .mode2,
+  .users .user-title .mode2 {
+    width: calc(100% / 12 * 4 - 10px);
+  }
+}
+@media screen and (max-width: 992px) {
+  .users .user .mode2,
+  .users .user-title .mode2 {
+    height: 30px;
+  }
+}
+.users .user .comp,
+.users .user-title .comp {
+  box-sizing: border-box;
+  word-wrap: break-word;
+  margin-left: 5px;
+  margin-right: 5px;
+  width: calc(100% / 12 * 1 - 10px);
+}
+@media screen and (max-width: 992px) {
+  .users .user .comp,
+  .users .user-title .comp {
+    width: calc(100% / 12 * 4 - 10px);
+  }
+}
+@media screen and (max-width: 992px) {
+  .users .user .comp,
+  .users .user-title .comp {
+    height: 30px;
+  }
+}
+.users .user .pass,
+.users .user-title .pass {
+  box-sizing: border-box;
+  word-wrap: break-word;
+  margin-left: 5px;
+  margin-right: 5px;
+  width: calc(100% / 12 * 2 - 10px);
+}
+@media screen and (max-width: 992px) {
+  .users .user .pass,
+  .users .user-title .pass {
+    width: calc(100% / 12 * 12 - 10px);
+  }
+}
+@media screen and (max-width: 992px) {
+  .users .user .pass,
+  .users .user-title .pass {
+    height: 30px;
+  }
+}
+.users .user .link,
+.users .user-title .link {
+  display: flex;
+  flex-wrap: wrap;
+  margin-left: -5px;
+  margin-right: -5px;
+}
+.users .user .link a,
+.users .user-title .link a {
+  display: flex;
+  flex-wrap: wrap;
+  margin-left: -5px;
+  margin-right: -5px;
+  box-sizing: border-box;
+  word-wrap: break-word;
+  margin-left: 5px;
+  margin-right: 5px;
+  width: calc(100% / 12 * 6 - 10px);
+  flex-grow: 1;
+  padding: 10px;
+  font-size: 1.2em;
+  font-weight: bold;
+  border: 1px solid #ddd;
+}
+.users .user .delete,
+.users .user-title .delete {
+  display: flex;
+  flex-wrap: wrap;
+  margin-left: -5px;
+  margin-right: -5px;
+}
+.users .user .delete a,
+.users .user-title .delete a {
+  cursor: pointer;
+  font-size: 1.2em;
+  font-weight: bold;
+}
+.users .user .delete a mat-icon,
+.users .user-title .delete a mat-icon {
+  color: #b70606;
+}
+.users .user:hover {
+  background: #fffb00;
+}
+.users-form {
+  display: flex;
+  flex-wrap: wrap;
+  margin-left: -5px;
+  margin-right: -5px;
+  position: fixed;
+  z-index: 10;
+  top: 0;
+  background: #fff;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  align-content: center;
+  justify-content: center;
+}
+.users-form .user {
+  display: flex;
+  flex-wrap: wrap;
+  margin-left: -5px;
+  margin-right: -5px;
+  max-width: 500px;
+  padding: 10px;
+}
+.users-form .user label {
+  box-sizing: border-box;
+  word-wrap: break-word;
+  margin-left: 5px;
+  margin-right: 5px;
+  width: calc(100% / 12 * 12 - 10px);
+  padding: 10px;
+  display: flex;
+  flex-wrap: wrap;
+  margin-left: -5px;
+  margin-right: -5px;
+  flex-wrap: nowrap;
+  flex-direction: column;
+}
+.users-form .user label input {
+  max-width: 300px;
+  font-size: 1.2em;
+  padding: 10px 10px;
+  margin: 10px;
+  border: 2px solid #06b755;
+  border-radius: 5px;
+  box-shadow: 3px 2px 1px 0px #ddd;
+  text-transform: uppercase;
+}
+.users-form .user label .btn {
+  font-weight: bold;
+  background: #06b755;
+  color: #fff;
+  font-size: 1.2em;
+  padding: 10px 10px;
+  margin: 10px;
+  border: 2px solid #06b755;
+  border-radius: 5px;
+  box-shadow: 3px 2px 1px 0px #ddd;
+  text-transform: uppercase;
+  width: 200px;
+}

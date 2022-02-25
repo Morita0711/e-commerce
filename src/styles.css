@@ -1,0 +1,188 @@
+/* You can add global styles to this file, and also import other style files */
+/* @import "~bootstrap/dist/css/bootstrap.css"; */
+@font-face {
+  font-family: "Roboto";
+  font-style: normal;
+  font-weight: 400;
+  src: url(https://fonts.gstatic.com/s/roboto/v29/KFOmCnqEu92Fr1Mu4mxP.ttf)
+    format("truetype");
+}
+
+body,
+div,
+dl,
+dt,
+dd,
+ul,
+li,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+pre,
+code,
+form,
+fieldset,
+input,
+textarea,
+p,
+blockquote,
+th,
+td {
+  margin: 0;
+  padding: 0;
+}
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+fieldset,
+img,
+abbr {
+  border: 0;
+}
+address,
+caption,
+cite,
+code,
+dfn,
+em,
+strong,
+th,
+var {
+  font-style: normal;
+  font-weight: normal;
+}
+ul li {
+  list-style: none;
+}
+caption,
+th {
+  text-align: left;
+}
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-size: 100%;
+  font-weight: normal;
+}
+sup {
+  vertical-align: text-top;
+}
+sub {
+  vertical-align: text-bottom;
+}
+input,
+textarea,
+select {
+  font-family: inherit;
+  font-size: inherit;
+  font-weight: inherit;
+}
+legend {
+  color: #000;
+}
+article,
+aside,
+details,
+figcaption,
+figure,
+footer,
+header,
+hgroup,
+menu,
+nav,
+section,
+main {
+  display: block;
+}
+img {
+  max-width: 100%;
+  height: auto;
+}
+button {
+  outline: none;
+  text-align: inherit;
+  border: none;
+  margin: 0;
+  padding: 0;
+  width: auto;
+  overflow: visible;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  line-height: normal;
+  -webkit-font-smoothing: inherit;
+  -moz-osx-font-smoothing: inherit;
+  -webkit-appearance: none;
+}
+* {
+  box-sizing: border-box;
+  text-decoration: none;
+  color: #000;
+}
+* {
+  font-family: Roboto;
+  font-size: 12px;
+  font-display: auto;
+}
+h1 {
+  width: 100%;
+  text-align: center;
+  text-transform: uppercase;
+  padding: 10px;
+  font-size: 2em;
+  font-weight: bold;
+}
+.pagination {
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  padding: 5px;
+}
+.paginate_button {
+  flex-wrap: wrap;
+  width: 100%;
+  justify-content: center;
+  width: unset;
+  cursor: pointer;
+  display: flex;
+  position: relative;
+}
+.paginate_button :hover {
+  background-color: #272727b4;
+  color: white;
+}
+
+.paginate_button a {
+  width: 30px;
+  height: 30px;
+  justify-content: center;
+  align-content: center;
+  border-radius: 5px;
+  border: 1px solid #9b9b9b;
+}
+.paginate_button.active a {
+  background: #0a95ff;
+  color: white;
+}
+
+.paginate_button.active a:hover {
+  background: #8dcbfa;
+  color: white;
+}
+
+html,
+body {
+  height: 100%;
+}
+body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+}

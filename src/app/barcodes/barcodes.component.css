@@ -1,0 +1,578 @@
+.red {
+  background: #ff0000;
+}
+.blue {
+  background: #0270c0;
+}
+.yellow {
+  background: #ffd966 !important;
+}
+.lightblue {
+  background: #9bc2e6 !important;
+}
+.brown {
+  background: #c55a12;
+}
+.green {
+  background: #a9d08e !important;
+}
+.bgreen {
+  background: #01b050;
+}
+.pink {
+  background: #7030a0;
+}
+.barok {
+  background: #fff;
+}
+.black {
+  background: #000;
+}
+.tblack {
+  color: #000 !important;
+}
+.grey {
+  background: #cacaca;
+}
+.greylight {
+  background: #d9d9d9;
+}
+.greydark {
+  background: #a6a6a6;
+}
+.barerror {
+  background: #ff7c80 !important;
+}
+.barwarning {
+  background: #ffff66 !important;
+}
+mat-icon {
+  color: #0270c0;
+}
+.barcodes {
+  position: relative;
+  display: flex;
+  flex-wrap: wrap;
+  width: 100%;
+  justify-content: center;
+  justify-content: flex-start;
+  width: 1840px;
+  margin: auto;
+}
+.barcodes .options {
+  box-sizing: border-box;
+  word-wrap: break-word;
+  margin-left: 5px;
+  margin-right: 5px;
+  width: calc(100% / 12 * 12 - 10px);
+  display: flex;
+  flex-wrap: wrap;
+  width: 100%;
+  justify-content: center;
+  flex-wrap: nowrap;
+  align-items: center;
+  align-content: center;
+  justify-content: space-between;
+}
+.barcodes .options a {
+  display: flex;
+  flex-wrap: wrap;
+  margin-left: -5px;
+  margin-right: -5px;
+  box-sizing: border-box;
+  word-wrap: break-word;
+  margin-left: 5px;
+  margin-right: 5px;
+  width: calc(100% / 12 * 2 - 10px);
+  flex-grow: 1;
+  padding: 10px;
+  font-size: 1.2em;
+  font-weight: bold;
+  white-space: nowrap;
+}
+@media screen and (max-width: 992px) {
+  .barcodes .options a {
+    width: calc(100% / 12 * 12 - 10px);
+  }
+}
+.barcodes .options button {
+  cursor: pointer;
+  padding: 5px 0;
+  text-align: center;
+  font-size: 1em;
+  margin: 10px 5px;
+  font-weight: bold;
+  white-space: nowrap;
+  border: 2px solid #000;
+  border-radius: 5px;
+  transform: translateX(0);
+  color: #fff;
+  transition: all ease 0.5s;
+}
+.barcodes .options button:hover {
+  border: 2px solid #00861d;
+  box-shadow: 3px 1px 11px 2px #04b755;
+}
+.barcodes .options button:active {
+  border: 2px solid #00861d;
+  box-shadow: 3px 1px 11px 2px #863100;
+  transform: translateX(5px);
+  transition: all ease 0.1s;
+}
+.barcodes .options .bordered {
+  border: 2px solid #00861d;
+  box-shadow: 3px 1px 11px 2px #04b755;
+}
+.barcodes .hideqty {
+  display: flex;
+  flex-wrap: wrap;
+  margin-left: -5px;
+  margin-right: -5px;
+  box-sizing: border-box;
+  word-wrap: break-word;
+  margin-left: 5px;
+  margin-right: 5px;
+  width: calc(100% / 12 * 2 - 10px);
+  flex-grow: 1;
+  padding: 10px;
+  font-size: 1.2em;
+  max-width: 150px;
+  font-weight: bold;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  background: #06b755;
+  color: #fff;
+}
+@media screen and (max-width: 992px) {
+  .barcodes .hideqty {
+    width: calc(100% / 12 * 12 - 10px);
+  }
+}
+.barcodes .barcode:nth-child(odd) {
+  background: #eee;
+}
+.barcodes .barcode-title {
+  background: #000;
+  line-height: 20px;
+}
+.barcodes .barcode-title a {
+  cursor: pointer;
+}
+.barcodes .barcode-title > div {
+  justify-content: center;
+  display: flex;
+  align-items: center;
+  align-content: center;
+}
+.barcodes .barcode-title > div mat-icon {
+  color: #fff;
+}
+.barcodes .barcode,
+.barcodes .barcode-title,
+.barcodes .barcode-edit,
+.barcodes .barcode-add {
+  display: flex;
+  flex-wrap: wrap;
+  margin-left: -5px;
+  margin-right: -5px;
+  flex-wrap: nowrap;
+  text-align: center;
+  box-sizing: border-box;
+  word-wrap: break-word;
+  margin-left: 5px;
+  margin-right: 5px;
+  width: calc(100% / 12 * 12);
+  padding: 10px;
+  border-bottom: 1px solid #000000;
+}
+.barcodes .barcode .id,
+.barcodes .barcode-title .id,
+.barcodes .barcode-edit .id,
+.barcodes .barcode-add .id {
+  box-sizing: border-box;
+  word-wrap: break-word;
+  margin-left: 5px;
+  margin-right: 5px;
+  width: calc(100% / 12 * 2 - 10px);
+}
+@media screen and (max-width: 992px) {
+  .barcodes .barcode .id,
+  .barcodes .barcode-title .id,
+  .barcodes .barcode-edit .id,
+  .barcodes .barcode-add .id {
+    width: calc(100% / 12 * 1 - 10px);
+  }
+}
+@media screen and (max-width: 992px) {
+  .barcodes .barcode .id,
+  .barcodes .barcode-title .id,
+  .barcodes .barcode-edit .id,
+  .barcodes .barcode-add .id {
+    height: 30px;
+    display: none;
+  }
+}
+.barcodes .barcode .location,
+.barcodes .barcode-title .location,
+.barcodes .barcode-edit .location,
+.barcodes .barcode-add .location {
+  cursor: pointer;
+  width: 100px;
+  min-width: 100px;
+}
+.barcodes .barcode .barcode,
+.barcodes .barcode-title .barcode,
+.barcodes .barcode-edit .barcode,
+.barcodes .barcode-add .barcode {
+  width: 200px;
+  min-width: 200px;
+}
+.barcodes .barcode .stockid,
+.barcodes .barcode-title .stockid,
+.barcodes .barcode-edit .stockid,
+.barcodes .barcode-add .stockid {
+  width: 200px;
+  min-width: 200px;
+}
+.barcodes .barcode .code,
+.barcodes .barcode-title .code,
+.barcodes .barcode-edit .code,
+.barcodes .barcode-add .code {
+  cursor: pointer;
+  width: 200px;
+  min-width: 200px;
+}
+@media screen and (max-width: 992px) {
+  .barcodes .barcode .code,
+  .barcodes .barcode-title .code,
+  .barcodes .barcode-edit .code,
+  .barcodes .barcode-add .code {
+    height: 30px;
+  }
+}
+.barcodes .barcode .stockid,
+.barcodes .barcode-title .stockid,
+.barcodes .barcode-edit .stockid,
+.barcodes .barcode-add .stockid {
+  position: relative;
+}
+.barcodes .barcode .stockid .editpopup,
+.barcodes .barcode-title .stockid .editpopup,
+.barcodes .barcode-edit .stockid .editpopup,
+.barcodes .barcode-add .stockid .editpopup {
+  display: flex;
+  flex-wrap: wrap;
+  width: 100%;
+  justify-content: center;
+  justify-content: space-between;
+  align-content: center;
+  padding: 0 15px;
+  max-width: 100px;
+  background: white;
+  border: 1px solid black;
+  border-radius: 5px;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  transform: translateX(50%);
+}
+@media screen and (max-width: 992px) {
+  .barcodes .barcode .userid,
+  .barcodes .barcode-title .userid,
+  .barcodes .barcode-edit .userid,
+  .barcodes .barcode-add .userid {
+    height: 30px;
+  }
+}
+.barcodes .barcode .qty,
+.barcodes .barcode-title .qty,
+.barcodes .barcode-edit .qty,
+.barcodes .barcode-add .qty {
+  width: 150px;
+  min-width: 150px;
+}
+@media screen and (max-width: 992px) {
+  .barcodes .barcode .qty,
+  .barcodes .barcode-title .qty,
+  .barcodes .barcode-edit .qty,
+  .barcodes .barcode-add .qty {
+    height: 30px;
+  }
+}
+.barcodes .barcode .last_scan,
+.barcodes .barcode-title .last_scan,
+.barcodes .barcode-edit .last_scan,
+.barcodes .barcode-add .last_scan {
+  width: 150px;
+  min-width: 150px;
+}
+@media screen and (max-width: 992px) {
+  .barcodes .barcode .last_scan,
+  .barcodes .barcode-title .last_scan,
+  .barcodes .barcode-edit .last_scan,
+  .barcodes .barcode-add .last_scan {
+    height: 30px;
+  }
+}
+.barcodes .barcode,
+.barcodes .barcode-title {
+  font-weight: bold;
+  width: 100%;
+  position: relative;
+  margin: 0;
+  padding: 0;
+}
+.barcodes .barcode div,
+.barcodes .barcode-title div {
+  color: #fff;
+  font-size: 1.2em;
+  font-weight: bold;
+  box-sizing: border-box;
+  word-wrap: break-word;
+  margin-left: 5px;
+  margin-right: 5px;
+  margin: 0;
+  padding: 10px 0;
+}
+.barcodes .barcode div a,
+.barcodes .barcode-title div a {
+  color: #fff;
+  font-weight: bold;
+}
+@media screen and (max-width: 992px) {
+}
+.barcodes .barcode-edit,
+.barcodes .barcode-add {
+  position: absolute;
+  left: 0;
+  top: 100%;
+  right: 0;
+  width: 100% !important;
+  background: #fff;
+  z-index: 1;
+  justify-content: flex-start !important;
+}
+.barcodes .barcode-edit input,
+.barcodes .barcode-add input {
+  width: 100%;
+  text-align: center;
+  font-weight: normal;
+  text-transform: uppercase;
+}
+.barcodes .barcode-edit .okpopup,
+.barcodes .barcode-add .okpopup {
+  display: flex;
+  flex-wrap: wrap;
+  width: 100%;
+  justify-content: center;
+  justify-content: space-between;
+  align-content: center;
+  padding: 0 15px;
+  max-width: 100px;
+  background: white;
+  border: 1px solid black;
+  border-radius: 5px;
+  position: absolute;
+  height: 40px;
+  bottom: calc(100% + 10px);
+  left: 0;
+  transform: translateX(50%);
+}
+.barcodes .barcode-edit .okpopup mat-icon,
+.barcodes .barcode-add .okpopup mat-icon {
+  color: #0270c0;
+}
+.barcodes .barcode-add {
+  top: 0;
+}
+.barcodes .barcode div {
+  color: #000;
+  font-size: 1em;
+  font-weight: bold;
+  box-sizing: border-box;
+  word-wrap: break-word;
+  margin-left: 5px;
+  margin-right: 5px;
+  width: calc(100% / 12 * 1);
+  margin: 0;
+  padding: 10px 0;
+}
+.barcodes .barcode div a {
+  color: #000;
+  font-weight: bold;
+}
+.barcodes .barcode:hover {
+  background: #fffb00;
+}
+.filters-form {
+  display: flex;
+  flex-wrap: wrap;
+  width: 100%;
+  justify-content: center;
+  align-content: center;
+  justify-content: flex-start;
+}
+.filters-form .filters {
+  display: flex;
+  flex-wrap: wrap;
+  width: 100%;
+  justify-content: center;
+  justify-content: flex-start;
+  flex-wrap: nowrap;
+}
+.filters-form .filters .filter {
+  display: flex;
+  flex-wrap: wrap;
+  width: 100%;
+  justify-content: center;
+  align-content: flex-end;
+  max-width: 300px;
+}
+.filters-form .filters .filter span {
+  box-sizing: border-box;
+  word-wrap: break-word;
+  margin-left: 5px;
+  margin-right: 5px;
+  width: calc(100% / 12 * 12);
+  font-weight: bold;
+  color: #1c3ea1;
+}
+.filters-form .filters .filter .fields {
+  display: flex;
+  flex-wrap: wrap;
+  margin-left: -5px;
+  margin-right: -5px;
+  flex-wrap: nowrap;
+  width: 100%;
+  align-content: flex-end;
+  align-items: flex-end;
+}
+.filters-form .filters label {
+  display: flex;
+  flex-wrap: wrap;
+  width: 100%;
+  justify-content: center;
+  flex-grow: 1;
+  padding: 5px 5px;
+  justify-content: flex-start;
+}
+.filters-form .filters label span {
+  box-sizing: border-box;
+  word-wrap: break-word;
+  margin-left: 5px;
+  margin-right: 5px;
+  width: calc(100% / 12 * 12);
+  font-weight: normal;
+  padding: 5px 0;
+  text-align: center;
+  color: #000;
+}
+.filters-form .filters label input {
+  width: calc(100% / 12 * 12);
+  font-size: 1.2em;
+  padding: 5px 5px;
+  border: 1px solid #070000;
+  border-radius: 5px;
+  text-transform: uppercase;
+}
+.filters-form .filters label select {
+  width: calc(100% / 12 * 12);
+  font-size: 1.2em;
+  padding: 5px 5px;
+  border: 1px solid #070000;
+  border-radius: 5px;
+  text-transform: uppercase;
+  padding: 5px 0;
+  text-align: center;
+  background: white;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  text-indent: 1px;
+  text-overflow: "";
+}
+.filters-form .filters label .qty {
+  order: 2;
+  width: 50px;
+  border-radius: 0 5px 5px 0;
+}
+.filters-form .filters label .slk {
+  order: 1;
+  text-align: center;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  text-indent: 1px;
+  text-overflow: "";
+  max-width: 30px;
+  border-radius: 5px 0 0 5px;
+}
+.filters-form .filters label .btn {
+  font-weight: bold;
+  background: #06b755;
+  color: #fff;
+  padding: 5px 30px;
+  margin: 0 10px;
+  border: 2px solid #06b755;
+  border-radius: 5px;
+  text-transform: uppercase;
+}
+.w20 {
+  width: 20px !important;
+  max-width: 20px !important;
+  min-width: 20px !important;
+  padding: 10px 0 !important;
+}
+.w50 {
+  width: 50px !important;
+  max-width: 50px !important;
+  min-width: 50px !important;
+}
+.w80 {
+  width: 80px !important;
+  max-width: 80px !important;
+  min-width: 80px !important;
+}
+.w130 {
+  width: 130px !important;
+  max-width: 130px !important;
+  min-width: 130px !important;
+}
+.w150 {
+  width: 150px !important;
+  max-width: 150px !important;
+  min-width: 150px !important;
+}
+.w170 {
+  width: 170px !important;
+  max-width: 170px !important;
+  min-width: 170px !important;
+}
+.w180 {
+  width: 180px !important;
+  max-width: 180px !important;
+  min-width: 180px !important;
+}
+.w200 {
+  width: 200px !important;
+  max-width: 200px !important;
+  min-width: 200px !important;
+}
+.w100 {
+  width: 100px !important;
+  max-width: 100px !important;
+  min-width: 100px !important;
+}
+.w300 {
+  width: 300px !important;
+  max-width: 300px !important;
+  min-width: 300px !important;
+}
+.w400 {
+  width: 400px !important;
+  max-width: 400px !important;
+  min-width: 400px !important;
+}
+.w450 {
+  width: 450px !important;
+  max-width: 450px !important;
+  min-width: 450px !important;
+}

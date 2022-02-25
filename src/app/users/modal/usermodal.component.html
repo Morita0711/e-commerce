@@ -1,0 +1,53 @@
+<div class="users-form">
+    <div class="user">
+      <label class="name">
+        <mat-form-field class="example-full-width" appearance="fill">
+            <mat-label>USER ID</mat-label>
+            <textarea matInput [(ngModel)]="add.userid" placeholder="USER ID"></textarea>
+        </mat-form-field>
+      </label>
+      
+      <label for="mode1">
+          MODE 1
+          <section class="example-section">
+            <mat-checkbox [(ngModel)]="add.mode1" name="mode1" id="mode1" class="example-margin">Mode 1</mat-checkbox>
+          </section>
+      </label>
+  
+      <label for="mode2">
+          MODE 2
+          <section class="example-section">
+            <mat-checkbox [(ngModel)]="add.mode2" name="mode2" id="mode2">Mode 2</mat-checkbox>
+          </section> 
+      </label>
+
+      <label for="mode3">
+        MODE 3
+        <section class="example-section">
+          <mat-checkbox [(ngModel)]="add.mode3" name="mode3" id="mode3">Mode 3</mat-checkbox>
+        </section> 
+      </label>
+  
+      <label for="comp">
+          COMPARE
+          <section class="example-section">
+            <mat-checkbox [(ngModel)]="add.compare" name="compare" id="comp">Compare</mat-checkbox>
+          </section>
+      </label>
+  
+      <label for="pass">  PASSWORD
+        <mat-form-field appearance="fill">
+            <mat-label>Enter your password</mat-label>
+            <input matInput [type]="hide ? 'password' : 'text'" [(ngModel)]="add.password" type="password"/>
+            <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+              <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+            </button>
+          </mat-form-field>  
+      </label>
+  
+      <label for="btn">
+        <button mat-stroked-button color="primary" class="btn" [mat-dialog-close]="add">Create user</button>
+        <button mat-stroked-button color="primary" class="btn" mat-dialog-close>Cancel</button>
+      </label>
+    </div>  
+  </div>

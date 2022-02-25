@@ -1,0 +1,24 @@
+<div class="upload_modal">
+  <ul >
+    <li class="message">
+      "Are you sure you want to continue? type YES"
+    </li>
+
+    <li class="password">
+      <label class="name">
+        <mat-form-field class="example-full-width" appearance="fill">
+            <mat-label>Answer</mat-label>
+            <textarea matInput [(ngModel)]="answer" placeholder="Answer"></textarea>
+        </mat-form-field>
+      </label>
+    </li>
+
+    <li class="back">
+      <button mat-stroked-button color="primary" class="btn" [mat-dialog-close]="add.flag1" >BACK</button>
+    </li>
+
+    <li class="process">
+      <button mat-stroked-button color="primary" class="btn" [mat-dialog-close]="add.flag2" >RESET</button>
+    </li>
+  </ul>
+</div>  

@@ -1,0 +1,27 @@
+<div class="wrap">
+    <!-- <ng-container > -->
+    <ng-container *ngIf="auth;else login" >
+    <div style="display: flex; flex-direction: row;">
+        <div ><app-menu [navOpen]="navOpen" (toggleNav)="toggleNav($event)"></app-menu></div>
+        <div [ngClass]="[navOpen ? 'main ': 'main active']" style="flex: 1 1;">
+            <router-outlet></router-outlet>
+        </div>
+    </div>
+    </ng-container>
+    <ng-template #login>
+    <div class="panel-heading">
+        <div class="panel-body">
+            <h3 class="panel-title">Admin Side</h3>
+                <fieldset>
+                    <div class="form-group">
+                        <input class="form-control" [(ngModel)]="userid" placeholder="userid"  type="text" autofocus="">
+                    </div>
+                    <div class="form-group">
+                        <input class="form-control" [(ngModel)]="pass" placeholder="Password"   type="password"  >
+                    </div>
+                    <button  (click)="doLogin()" class="btn btn-lg btn-success btn-block">Login</button>
+                </fieldset>
+        </div>
+    </div>
+    </ng-template>
+</div>

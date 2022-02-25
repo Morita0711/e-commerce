@@ -1,0 +1,44 @@
+<div class="users">
+  <div class="options">
+    <a (click)="open()">
+      <mat-icon [ngStyle]="{color: 'black'}">add_circle_outline</mat-icon>
+    </a>
+    <a (click)="Download()">
+      <mat-icon [ngStyle]="{color: 'black'}">cloud_download</mat-icon>
+    </a>
+  </div>
+
+  <table datatable [dtOptions]="dtOptions" *ngIf="users&&users.length > 0">
+    <thead>
+      <tr>
+        <th >ID</th>
+        <th >USER ID</th>
+        <th >MODE 1</th>
+        <th >MODE 2</th>
+        <th >MODE 3</th>
+        <th >COMPARE</th>
+        <th >PASSWORD</th>
+        <th >OPTIONS</th>
+        <th ></th>
+      </tr>
+    </thead>
+    <tbody> 
+      <tr *ngFor="let user of users">
+        <td class="id">{{user.id}}</td>
+        <td class="name">{{user.userid}}</td>
+        <td class="mode1"><input (change)="mode1(user)" type="checkbox" [checked]="user.mode1==1"></td>
+        <td class="mode2"><input (change)="mode2(user)" type="checkbox" [checked]="user.mode2==1"></td>
+        <td class="mode3"><input (change)="mode3(user)" type="checkbox" [checked]="user.mode3==1"></td>
+        <td class="comp"><input (change)="compare(user)" type="checkbox" [checked]="user.compare==1"></td>
+        <td class="pass"><input class="password" (ngModel)="user.password" type="password"
+            (keyup)="setPassword($event, user)"></td>
+        <td class="delete">
+          <a (click)="deleteUser(user)" class="action">
+            <mat-icon [ngStyle]="{color: 'black'}">delete_outline</mat-icon>
+          </a>
+        </td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+</div>
