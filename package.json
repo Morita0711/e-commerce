@@ -28,6 +28,7 @@
     "angular-datatables": "^13.0.1",
     "datatables.net": "^1.11.4",
     "datatables.net-dt": "^1.11.4",
+    "igniteui-angular": "^12.3.13",
     "moment": "^2.29.1",
     "rxjs": "~7.5.4",
     "tslib": "^2.3.1",

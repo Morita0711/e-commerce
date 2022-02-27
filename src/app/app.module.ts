@@ -32,7 +32,13 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
 import { UserModalComponent } from './users/modal/usermodal.component';
 import { LocationModalComponent } from './locations/modal/locationmodal.component';
 import { UploadeModalCompoment } from './upload/modal/uploadmodal.component';
+import { BarcodeModalComponent } from './barcodes/modal/barcodesmodal.component';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
+import { 
+	IgxDropDownModule,
+	IgxButtonModule,
+	IgxToggleModule
+ } from "igniteui-angular";
 
 
 // import { ButtonsModule, WavesModule, CollapseModule } from 'angular-bootstrap-md'
@@ -50,9 +56,13 @@ import { MatDialog, MatDialogModule } from '@angular/material/dialog';
     AuthComponent,
     UserModalComponent,
     LocationModalComponent,
-    UploadeModalCompoment
+    UploadeModalCompoment,
+    BarcodeModalComponent
   ],
   imports: [
+    IgxDropDownModule,
+    IgxButtonModule,
+    IgxToggleModule,
     BrowserModule,
     BrowserAnimationsModule,
     AppRoutingModule,
@@ -77,7 +87,7 @@ import { MatDialog, MatDialogModule } from '@angular/material/dialog';
     MatDialogModule
   ],
   exports:[],
-  providers: [MatDatepickerModule, UserModalComponent, LocationModalComponent, UploadeModalCompoment],
+  providers: [MatDatepickerModule, UserModalComponent, LocationModalComponent, UploadeModalCompoment, BarcodeModalComponent],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

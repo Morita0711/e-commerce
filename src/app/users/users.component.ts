@@ -65,7 +65,7 @@ export class UsersComponent implements OnInit {
   ngOnInit(): void {
     this.getUsers();
     this.dtOptions = {
-      searching: true,
+      searching: false,
       pagingType: 'full_numbers',
       processing: true,
       lengthChange: true,
@@ -214,8 +214,7 @@ export class UsersComponent implements OnInit {
       id: user.id,
     }
     this.http.sendPost().subscribe((result: any) => {
-      if (result == "ok") this.getUsers();
-      window.location.reload();
+      this.getUsers();
     })
   }
 }

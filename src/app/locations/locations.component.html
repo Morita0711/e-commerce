@@ -6,9 +6,12 @@
     <a (click)=" updatelocations()">
       <mat-icon [ngStyle]="{color: 'black'}">replay</mat-icon>
     </a>
+    <a (click)="Download()">
+      <mat-icon [ngStyle]="{color: 'black'}">cloud_download</mat-icon>
+    </a>
   </div>
   
-  <table datatable [dtOptions]="dtOptions"  *ngIf="locations&&locations.length > 0">
+  <table datatable [dtOptions]="dtOptions" *ngIf="locations && locations.length > 0 && showTable">
     <thead>
       <tr class="location-title">
         <th class="id-title">ID</th>
@@ -18,7 +21,7 @@
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let location of locations">
+      <tr *ngFor="let location of locations" id="{{location.id}}">
         <td class="id">{{location.id}}</td>
         <td class="name">{{location.title}}</td>
         <td  class="total">{{location.total}}</td>

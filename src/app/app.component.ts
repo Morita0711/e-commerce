@@ -28,9 +28,7 @@ export class AppComponent {
 
   }
   doLogin(){
-
    if (this.userid!="" && this.pass!=""){
-
     this.http.params={
       module: "auth",
       action: "login",

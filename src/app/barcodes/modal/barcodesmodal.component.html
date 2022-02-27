@@ -1,0 +1,43 @@
+<div class="user">
+  <label class="name">
+    <mat-form-field class="example-full-width" appearance="fill">
+      <mat-label>Edit Location</mat-label>
+      <textarea matInput [(ngModel)]="add.location" placeholder="Edit location"></textarea>
+    </mat-form-field>
+  </label>
+
+  <label class="name">
+    <mat-form-field class="example-full-width" appearance="fill">
+      <mat-label>Edit stockid</mat-label>
+      <textarea matInput [(ngModel)]="add.stockid" placeholder="Edit stockid"></textarea>
+    </mat-form-field>
+  </label>
+
+  <label class="name">
+    <mat-form-field class="example-full-width" appearance="fill">
+      <mat-label>Edit barcode</mat-label>
+      <textarea matInput [(ngModel)]="add.barcode" placeholder="Edit barcode"></textarea>
+    </mat-form-field>
+  </label>
+
+  <label class="name">
+    <mat-form-field class="example-full-width" appearance="fill">
+      <mat-label>Edit quantity</mat-label>
+      <textarea matInput [(ngModel)]="add.quantity" placeholder="Edit quantity"></textarea>
+    </mat-form-field>
+  </label>
+
+  <label class="name">
+    <mat-form-field class="example-full-width" appearance="fill">
+      <mat-label>Edit user_id1</mat-label>
+      <textarea matInput [(ngModel)]="add.user_id" placeholder="Edit user_id1"></textarea>
+    </mat-form-field>
+  </label>
+
+
+  <label for="btn" class="btn">
+    <button mat-stroked-button color="primary" class="btn" [mat-dialog-close]="add">Create location</button>
+    <button mat-stroked-button color="primary" class="btn" mat-dialog-close>Cancel</button>
+  </label>
+
+</div>

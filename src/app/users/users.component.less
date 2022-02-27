@@ -1,23 +1,15 @@
 @import "../../smart-grid.less";
 .users {
   margin-top: 10%;
-  // .options {
-  //   .col();
-  //   .size(12);
-  //   .row-flex-no();
-  //   justify-content: flex-start;
-  //   a {
-  //     padding: 10px;
-  //     font-size: 1.2em;
-  //     mat-icon {
-  //       color: #000;
-  //     }
-  //   }
-  // }
-  // .row-flex();
-  // .user:nth-child(odd) {
-  //   background: #eee;
-  // }
+  .options {
+    a {
+      padding: 5px;
+      font-size: 1.2em;
+      mat-icon {
+        color: #000;
+      }
+    }
+  }
   .user-title {
     font-weight: bold;
 
@@ -174,9 +166,18 @@
     }
   }
 }
-table thead {
-  background: #e85524;
-  th {
-    color: white;
+table {
+  thead {
+    background: #e85524;
+    th {
+      text-align: center;
+      color: white;
+    }
+  }
+  tbody {
+    td {
+      border-bottom: 1px solid rgba(119, 119, 119, 0.418);
+      text-align: center;
+    }
   }
 }

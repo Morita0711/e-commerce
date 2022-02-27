@@ -32,7 +32,7 @@ table.dataTable tfoot td {
   background: #c55a12;
 }
 .green {
-  background: #7e7d7d !important;
+  background: #7da97f !important;
 }
 .bgreen {
   background: #10ff7b;
@@ -396,68 +396,6 @@ table.dataTable tfoot td {
     }
   }
 }
-.w20 {
-  width: 20px !important;
-  max-width: 20px !important;
-  min-width: 20px !important;
-  padding: 10px 0 !important;
-}
-.w50 {
-  width: 50px !important;
-  max-width: 50px !important;
-  min-width: 50px !important;
-}
-.w80 {
-  width: 80px !important;
-  max-width: 80px !important;
-  min-width: 80px !important;
-}
-.w130 {
-  width: 130px !important;
-  max-width: 130px !important;
-  min-width: 130px !important;
-}
-.w150 {
-  width: 150px !important;
-  max-width: 150px !important;
-  min-width: 150px !important;
-}
-.w170 {
-  width: 170px !important;
-  max-width: 170px !important;
-  min-width: 170px !important;
-}
-.w180 {
-  width: 180px !important;
-  max-width: 180px !important;
-  min-width: 180px !important;
-}
-.w200 {
-  width: 200px !important;
-  max-width: 200px !important;
-  min-width: 200px !important;
-}
-.w100 {
-  width: 100px !important;
-  max-width: 100px !important;
-  min-width: 100px !important;
-}
-
-.w300 {
-  width: 300px !important;
-  max-width: 300px !important;
-  min-width: 300px !important;
-}
-.w400 {
-  width: 400px !important;
-  max-width: 400px !important;
-  min-width: 400px !important;
-}
-.w450 {
-  width: 450px !important;
-  max-width: 450px !important;
-  min-width: 450px !important;
-}
 
 .barcodeTable {
   text-align: center !important;
@@ -469,11 +407,19 @@ table {
   border-collapse: collapse;
 }
 
-.searchHead {
+::ng-deep .searchHead {
   position: sticky !important ;
   top: 0;
   z-index: 1000;
   background-color: white;
+  th:nth-child(1) {
+    .mat-form-field-flex {
+      padding: 0;
+    }
+    .mat-form-field-infix {
+      height: 10px;
+    }
+  }
 }
 
 .searchHead .sticky {
@@ -504,11 +450,17 @@ tbody .sticky {
     display: flex;
     align-items: center;
   }
+  th {
+    padding: 10px;
+  }
 }
 
-.searchHead {
+::ng-deep .searchHead {
   .matSelect {
     padding-top: 14px !important;
+    .mat-select-arrow {
+      color: white !important;
+    }
   }
   th:nth-child(1) {
     width: 40px !important;
@@ -551,11 +503,17 @@ tbody .sticky {
 }
 
 .searchHead {
+  th:nth-child(2) {
+    mat-form-field {
+      width: 150px !important;
+    }
+  }
   th:nth-child(3) {
     mat-form-field {
       width: 90px !important;
     }
   }
+
   th:nth-child(4),
   th:nth-child(5),
   th:nth-child(6),
@@ -566,7 +524,7 @@ tbody .sticky {
   th:nth-child(14),
   th:nth-child(15) {
     mat-form-field {
-      width: 70px !important;
+      width: 45px !important;
       p {
         font-size: 30px !important;
       }
@@ -582,11 +540,85 @@ tbody .sticky {
   }
 }
 
+::ng-deep .mat-select-arrow {
+  // display: none !important;
+}
+
 ::ng-deep .mat-form-field-label-wrapper {
   text-align: center;
 }
 
+::ng-deep .matSelect {
+  .mat-select-trigger {
+    border-bottom: 1px solid #8e8e8e;
+    margin-block: -4px;
+    height: 32px;
+  }
+}
+
 .tblHead {
+  th:nth-child(1) {
+    width: 75px !important;
+  }
+
+  th:nth-child(2) {
+    width: 120px !important;
+  }
+
+  th:nth-child(3) {
+    width: 110px !important;
+  }
+  th:nth-child(4) {
+    width: 70px !important;
+  }
+
+  th:nth-child(5) {
+    width: 58px !important;
+  }
+
+  th:nth-child(6),
+  th:nth-child(7) {
+    width: 65px !important;
+  }
+  th:nth-child(8) {
+    width: 45px !important;
+  }
+  th:nth-child(9) {
+    width: 84px !important;
+  }
+  th:nth-child(10),
+  th:nth-child(11) {
+    width: 65px !important;
+  }
+  th:nth-child(12) {
+    width: 42px !important;
+  }
+
+  th:nth-child(13) {
+    width: 84px !important;
+  }
+
+  th:nth-child(14),
+  th:nth-child(15) {
+    width: 65px !important;
+  }
+
+  th:nth-child(16) {
+    width: 42px !important;
+  }
+
+  th:nth-child(17) {
+    width: 67px !important;
+  }
+
+  th:nth-child(18) {
+    width: 80px !important;
+  }
+
+  th:nth-child(19) {
+    width: 65px !important;
+  }
+
   th {
     text-align: center;
   }
@@ -597,8 +629,6 @@ tbody tr td {
 }
 
 tbody tr td:nth-child(2) {
-  display: flex;
-  justify-content: space-between;
   overflow-wrap: anywhere;
 }
 

@@ -1,15 +1,19 @@
-import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
+import { AfterViewInit, Component, OnDestroy, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { HttpqueryService } from '../services/httpquery.service';
 import { MomentDateAdapter, MAT_MOMENT_DATE_ADAPTER_OPTIONS } from '@angular/material-moment-adapter';
 import { DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE } from '@angular/material/core';
 import { FormControl, FormGroup } from '@angular/forms';
+import { BarcodeModalComponent } from './modal/barcodesmodal.component';
+import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+
 // Depending on whether rollup is used, moment needs to be imported differently.
 // Since Moment.js doesn't have a default export, we normally need to import using the `* as`
 // syntax. However, rollup creates a synthetic default module and we thus need to import it using
 // the `default as` syntax.
 import * as _moment from 'moment';
 import { DataTableDirective } from 'angular-datatables';
+import { Subject } from 'rxjs';
 // tslint:disable-next-line:no-duplicate-imports
 //import {default as _rollupMoment} from 'moment';
 
@@ -24,7 +28,14 @@ export const MY_FORMATS = {
     dateInput: 'YYYY-MM-DD',
   },
 };
-
+interface barcodesInterface {
+  flag:boolean,
+  location: string,
+  stockid: string,
+  barcode: string,
+  quantity: number,
+  user_id: string
+}
 
 @Component({
   selector: 'app-barcodes',
@@ -45,28 +56,38 @@ export const MY_FORMATS = {
   ],
 })
 
-export class BarcodesComponent implements OnInit {
 
+
+export class BarcodesComponent implements AfterViewInit, OnDestroy, OnInit {
+  tempItems: { field: string }[] = [
+    { field: 'Option 1' },
+    { field: 'Option 2' },
+    { field: 'Option 3' }
+  ]
   toppings: FormGroup;
   @ViewChild(DataTableDirective)
   dtElement: DataTableDirective;
-  // dtTrigger: Subject<any> = new Subject();
   dtOptions: DataTables.Settings = {};
+  dtTrigger: Subject<any> = new Subject();
   posts;
 
   @ViewChild('selectElem') el: ElementRef;
   items = new FormControl();
   itemList: string[] = ['Valid', 'Not Valid', 'Wrong', 'Error', 'All', 'Ok'];
   userList: string[] = ['All', 'User 1', 'User 2'];
+  userList1: string[] = ['User 1', 'User 2'];
   validateList: string[] = ["Validate", "Validate DIF 1 = 0", "Validate DIF 2 = 0", "Reset Manual", "Reset Autoval", "Reset All Val", "Reset Current"]
   operators: any[] = [
-    { value: 2, operator: '=' },
-    { value: 3, operator: '!=' },
-    { value: 0, operator: '<' },
-    { value: 1, operator: '>' },
-    { value: 4, operator: '<=' },
-    { value: 5, operator: '>=' },
+    { value: "2", operator: '=' },
+    { value: "3", operator: '!=' },
+    { value: "0", operator: '<' },
+    { value: "1", operator: '>' },
+    { value: "4", operator: '<=' },
+    { value: "5", operator: '>=' },
   ];
+
+  validateStr: string = "All";
+  checkboxStr: string = "Validate"
   value: string;
   selectedValue: string = "";
   mode: string = "all";
@@ -86,7 +107,7 @@ export class BarcodesComponent implements OnInit {
   location_id: any;
   byCond: string = "";
   users: Array<any> = [];
-  searchfilters: { locations: { from: string; to: string; }[]; barcodes: { barcode: string; }[]; scandates: { from: string; to: string; }[]; scandates1: { from: string; to: string; }[]; qty: string; qty1: string; oldqty: string; dif: string; dif1: string; allqty: string; alloldqty: string; alldif: string; qtyopt: string; qtyopt1: string; oldqtyopt: string; difopt: string; difopt1: string; allqtyopt: string; alloldqtyopt: string; alldifopt: string; user1columns: string; user2columns: string; };
+  searchfilters: {  locations: { from: string; to: string; }[]; barcodes: { barcode: string; }[]; scandates: { from: string; to: string; }[]; scandates1: { from: string; to: string; }[]; qty: string; qty1: string; oldqty: string; dif: string; dif1: string; allqty: string; alloldqty: string; alldif: string; qtyopt: string; qtyopt1: string; oldqtyopt: string; difopt: string; difopt1: string; allqtyopt: string; alloldqtyopt: string; alldifopt: string; user1columns: string;stockid:string; user2columns: string; };
   nextpage: number = 0;
   prevpage: number = 0;
   progressbar = false;
@@ -99,8 +120,9 @@ export class BarcodesComponent implements OnInit {
   allcolumns: string = "1";
   fromPagination: boolean = false;
   isRefreshing: boolean = false;
-  add: { location: string; stockid: string; barcode: string; old_quantity: string; quantity: number; quantity1: number; user_id: string; user_id1: string; };
-  constructor(private route: ActivatedRoute, private http: HttpqueryService) { }
+  add: { flag: boolean, location: string; stockid: string, barcode: string,  quantity: Number, user_id: string, };
+
+  constructor(private route: ActivatedRoute, private http: HttpqueryService, public dialog: MatDialog) { }
 
   ngOnInit(): void {
     this.dtOptions = {
@@ -117,8 +139,6 @@ export class BarcodesComponent implements OnInit {
     this.resetFilter();
     this.resetAdd();
     this.route.queryParams.subscribe((params: any) => {
-      console.log("================");
-      console.log(params);
       this.mode = params.mode;
       this.user_id = params.id;
       this.location_id = params.id;
@@ -134,38 +154,33 @@ export class BarcodesComponent implements OnInit {
     })
   }
 
-  refresh(): void {
+  ngAfterViewInit(): void {
+    this.dtTrigger.next(undefined);
+  }
+
+  ngOnDestroy(): void {
+    // Do not forget to unsubscribe the event
+    this.dtTrigger.unsubscribe();
+  }
+
+  rerender(): void {
     this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
       setTimeout(() => {
         dtInstance.draw();
+        console.log(dtInstance.data())
       }, 5)
     });
   }
-
-  ngAfterViewInit(): void {
-    // this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
-    //   dtInstance.columns().every(function () {
-    //     $('.column-filter', this.footer()).on('keyup change', function () {
-    //       if (dtInstance.column(this['id']).search() !== this['value']) {
-    //         dtInstance
-    //           .column(this['id'])
-    //           .search(this['value'])
-    //           .draw();
-    //       }
-    //     });
-    //   });
-    // });
-  }
-
 
   sortUser(event) {
     if (event == "User 1") this.toggleUser1Columns()
     if (event == "User 2") this.toggleUser2Columns()
     if (event == "All") this.toggleAllColumns()
-    this.refresh()
+    this.rerender();
   }
 
   sortValidate(event) {
+    this.checkboxStr = event
     if (event == "Validate") this.selectMatching()
     if (event == "Validate DIF 1 = 0") this.selectMatching1()
     if (event == "Validate DIF 2 = 0") this.selectMatching2()
@@ -199,16 +214,12 @@ export class BarcodesComponent implements OnInit {
 
   resetAdd() {
     this.add = {
+      flag:true,
       location: "",
       stockid: "",
       barcode: "",
-      old_quantity: "",
       quantity: 0,
-      quantity1: 0,
-      user_id: "",
-      user_id1: "",
-
-
+      user_id: ""
     }
   }
   getUsers() {
@@ -231,14 +242,17 @@ export class BarcodesComponent implements OnInit {
     this.getByMode();
   }
 
-  setValid(str: String) {
-
+  setValid(str: string) {
+    this.validateStr = str;
     if (str == 'Valid') this.sortValid()
     if (str == "Not Valid") this.sortNotValid()
     if (str == "Wrong") this.sortWrong()
     if (str == "Error") this.sortNotExist()
     if (str == "All") this.sortAll()
     if (str == "Ok") this.sortOK()
+    this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
+      console.log(dtInstance.data())
+    });
   }
 
   filterByOperate(id: number) {
@@ -247,7 +261,7 @@ export class BarcodesComponent implements OnInit {
     table
       .column(id)
       .data()
-      .filter(function(value, index) {
+      .filter(function (value, index) {
         // let filterValue = $('#filterValue' + id).val();
         // let filterOperator = $('#filterOperator' + id).val();
         // return filterValue == value ? true : false;
@@ -370,20 +384,20 @@ export class BarcodesComponent implements OnInit {
     this.getByMode();
   }
   setBarcode(val) {
-    let barcode = { barcode:val };
+    let barcode = { barcode: val };
     this.searchfilters.barcodes[0] = barcode;
     this.getByMode();
   }
-  addBarcode(){
-    let barcode={
-      barcode:""
+  addBarcode() {
+    let barcode = {
+      barcode: ""
     }
     this.searchfilters.barcodes.push(barcode)
   }
-  addLocation(){
-    let loction={
-      from:"",
-      to:"",
+  addLocation() {
+    let loction = {
+      from: "",
+      to: "",
     }
     this.searchfilters.locations.push(loction)
   }
@@ -440,6 +454,7 @@ export class BarcodesComponent implements OnInit {
 
     })
   }
+
   getModeAll() {
     this.http.params = {
       module: "barcodes",
@@ -455,12 +470,13 @@ export class BarcodesComponent implements OnInit {
       searchfilters: this.searchfilters,
       csv: 0
     }
-    console.log(this.http.params);
-    this.http.sendPost().subscribe((result: any) => {
+    console.log(this.searchfilters.stockid)
+    this.http.sendPost().subscribe(async (result: any) => {
       this.fromPagination = false;
       this.progressbar = false;
-      this.barcodes = result.data.barcodes;
+      await (this.barcodes = result.data.barcodes)
       let npages = result.data.links.pages;
+
       this.nextpage = result.data.links.end[0];
       this.endpage = result.data.links.end[1];
       this.startpage = result.data.links.start[0];
@@ -470,13 +486,11 @@ export class BarcodesComponent implements OnInit {
       };
       this.pages.splice(0);
       npages.forEach((page: number) => {
-
         let parr = { page: 0, link: "" };
         pq.page = page;
         parr.page = page;
         this.pages.push(parr);
       });
-
     })
   }
 
@@ -601,6 +615,7 @@ export class BarcodesComponent implements OnInit {
         barcode: this.add
       }
     }
+    console.log(this.http.params)
     if (this.mode == "compare") {
       this.http.params = {
         module: "barcodes",
@@ -688,6 +703,7 @@ export class BarcodesComponent implements OnInit {
         from: "",
         to: "",
       }],
+      stockid:"",
       barcodes: [{
         barcode: ""
       }],
@@ -718,10 +734,10 @@ export class BarcodesComponent implements OnInit {
       user1columns: this.user1columns,
       user2columns: this.user2columns,
     }
-    this.showfilter=false;
+    this.showfilter = false;
     this.getByMode();
   }
-  selectMatching() {  
+  selectMatching() {
     if (this.mode == "compare") {
       this.http.params = {
         module: "barcodes",
@@ -837,13 +853,16 @@ export class BarcodesComponent implements OnInit {
     this.byCond = "";
     this.getByMode();
   }
-  sortValid() {
+  async sortValid() {
     this.byCond = "valid";
     this.getByMode();
+    var dtInstance = (await this.dtElement.dtInstance);
+    dtInstance.draw();
   }
-  sortNotValid() {
+  async sortNotValid() {
     this.byCond = "notvalid";
     this.getByMode();
+
   }
   sortVerified() {
     this.byCond = "verified";
@@ -853,13 +872,19 @@ export class BarcodesComponent implements OnInit {
     this.byCond = "ok";
     this.getByMode();
   }
-  sortWrong() {
+  async sortWrong() {
     this.byCond = "wrong";
-    this.getByMode();
+    await this.getByMode();
+    var dtInstance = (await this.dtElement.dtInstance);
+    console.log(dtInstance)
+    dtInstance.clear();
   }
-  sortNotExist() {
+  async sortNotExist() {
     this.byCond = "notexist";
     this.getByMode();
+    var dtInstance = (await this.dtElement.dtInstance);
+    console.log(dtInstance)
+    dtInstance.draw(true);
   }
   Recalculate() {
     this.http.params = {
@@ -889,22 +914,20 @@ export class BarcodesComponent implements OnInit {
     else this.hideqty = "1";
     this.getByMode();
   };
+
   toggleUser1Columns() {
     if (this.user1columns == "1") this.user1columns = "";
     else this.user1columns = "1";
     this.searchfilters.user1columns = this.user1columns;
-    // this.getByMode();
   };
   toggleUser2Columns() {
     if (this.user2columns == "1") this.user2columns = "";
     else this.user2columns = "1";
     this.searchfilters.user2columns = this.user2columns;
-    // this.getByMode();
   };
   toggleAllColumns() {
     if (this.allcolumns == "1") this.allcolumns = "";
     else this.allcolumns = "1";
-    // this.getByMode();
   };
   toggleOld() {
     if (this.hideold == "1") this.hideold = "";
@@ -920,4 +943,22 @@ export class BarcodesComponent implements OnInit {
 
   resetMode1() { }
   resetMode2() { }
+
+
+  open(val: barcodesInterface){
+    const dialogRef = this.dialog.open(BarcodeModalComponent, {
+      width: '450px',
+      data:val
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      this.add.flag = result.location
+      if (result) {
+        alert(result)
+      }
+      else {
+        alert(123)
+      }
+    });
+  }
 }
