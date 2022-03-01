@@ -9,7 +9,7 @@
   <label class="name">
     <mat-form-field class="example-full-width" appearance="fill">
       <mat-label>Edit stockid</mat-label>
-      <textarea matInput [(ngModel)]="add.stockid" placeholder="Edit stockid"></textarea>
+      <textarea matInput [(ngModel)]="add.stockid" placeholder="Edit stokcid"></textarea>
     </mat-form-field>
   </label>
 
@@ -22,21 +22,38 @@
 
   <label class="name">
     <mat-form-field class="example-full-width" appearance="fill">
-      <mat-label>Edit quantity</mat-label>
-      <textarea matInput [(ngModel)]="add.quantity" placeholder="Edit quantity"></textarea>
-    </mat-form-field>
-  </label>
-
-  <label class="name">
-    <mat-form-field class="example-full-width" appearance="fill">
       <mat-label>Edit user_id1</mat-label>
       <textarea matInput [(ngModel)]="add.user_id" placeholder="Edit user_id1"></textarea>
     </mat-form-field>
   </label>
 
+  <label class="name">
+    <mat-form-field class="example-full-width" appearance="fill">
+      <mat-label>Edit quantity</mat-label>
+      <textarea matInput [(ngModel)]="add.quantity" placeholder="Edit quantity"></textarea>
+    </mat-form-field>
+  </label>
+<<ng-container *ngIf="data[1] == 'all'">
+  <label class="name">
+    <mat-form-field class="example-full-width" appearance="fill">
+      <mat-label>Edit user_id2</mat-label>
+      <textarea matInput [(ngModel)]="add.user_id1" placeholder="Edit user_id2"></textarea>
+    </mat-form-field>
+  </label>
+
+  <label class="name">
+    <mat-form-field class="example-full-width" appearance="fill">
+      <mat-label>Edit quantity2</mat-label>
+      <textarea matInput [(ngModel)]="add.quantity1" placeholder="Edit quantity2"></textarea>
+    </mat-form-field>
+  </label>
+</ng-container>
+
+
+
 
   <label for="btn" class="btn">
-    <button mat-stroked-button color="primary" class="btn" [mat-dialog-close]="add">Create location</button>
+    <button mat-stroked-button color="primary" class="btn" [mat-dialog-close]="add">Save</button>
     <button mat-stroked-button color="primary" class="btn" mat-dialog-close>Cancel</button>
   </label>
 

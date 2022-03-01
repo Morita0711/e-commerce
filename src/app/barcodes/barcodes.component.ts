@@ -29,7 +29,7 @@ export const MY_FORMATS = {
   },
 };
 interface barcodesInterface {
-  flag:boolean,
+  flag: boolean,
   location: string,
   stockid: string,
   barcode: string,
@@ -74,7 +74,7 @@ export class BarcodesComponent implements AfterViewInit, OnDestroy, OnInit {
   @ViewChild('selectElem') el: ElementRef;
   items = new FormControl();
   itemList: string[] = ['Valid', 'Not Valid', 'Wrong', 'Error', 'All', 'Ok'];
-  userList: string[] = ['All', 'User 1', 'User 2'];
+  userList: any[] = [{ value: 'All', checked: true }, { value: 'User 1', checked: true }, { value: 'User 2', checked: true }];
   userList1: string[] = ['User 1', 'User 2'];
   validateList: string[] = ["Validate", "Validate DIF 1 = 0", "Validate DIF 2 = 0", "Reset Manual", "Reset Autoval", "Reset All Val", "Reset Current"]
   operators: any[] = [
@@ -107,7 +107,7 @@ export class BarcodesComponent implements AfterViewInit, OnDestroy, OnInit {
   location_id: any;
   byCond: string = "";
   users: Array<any> = [];
-  searchfilters: {  locations: { from: string; to: string; }[]; barcodes: { barcode: string; }[]; scandates: { from: string; to: string; }[]; scandates1: { from: string; to: string; }[]; qty: string; qty1: string; oldqty: string; dif: string; dif1: string; allqty: string; alloldqty: string; alldif: string; qtyopt: string; qtyopt1: string; oldqtyopt: string; difopt: string; difopt1: string; allqtyopt: string; alloldqtyopt: string; alldifopt: string; user1columns: string;stockid:string; user2columns: string; };
+  searchfilters: { locations: { from: string; to: string; }[]; barcodes: { barcode: string; }[]; scandates: { from: string; to: string; }[]; scandates1: { from: string; to: string; }[]; qty: string; qty1: string; oldqty: string; dif: string; dif1: string; allqty: string; alloldqty: string; alldif: string; qtyopt: string; qtyopt1: string; oldqtyopt: string; difopt: string; difopt1: string; allqtyopt: string; alloldqtyopt: string; alldifopt: string; user1columns: string; stockid: string; user2columns: string; };
   nextpage: number = 0;
   prevpage: number = 0;
   progressbar = false;
@@ -120,7 +120,7 @@ export class BarcodesComponent implements AfterViewInit, OnDestroy, OnInit {
   allcolumns: string = "1";
   fromPagination: boolean = false;
   isRefreshing: boolean = false;
-  add: { flag: boolean, location: string; stockid: string, barcode: string,  quantity: Number, user_id: string, };
+  add: { flag: boolean, location: string; old_quantity: number, stockid: string, barcode: string, quantity: Number, user_id: string, quantity1: Number, user_id1: string };
 
   constructor(private route: ActivatedRoute, private http: HttpqueryService, public dialog: MatDialog) { }
 
@@ -214,12 +214,15 @@ export class BarcodesComponent implements AfterViewInit, OnDestroy, OnInit {
 
   resetAdd() {
     this.add = {
-      flag:true,
+      flag: true,
       location: "",
+      old_quantity: 0,
       stockid: "",
       barcode: "",
       quantity: 0,
-      user_id: ""
+      quantity1: 0,
+      user_id: "",
+      user_id1: ""
     }
   }
   getUsers() {
@@ -232,13 +235,18 @@ export class BarcodesComponent implements AfterViewInit, OnDestroy, OnInit {
 
     })
   }
-  setUser(e: Event) {
-    this.user_id = e.toString();
-    this.getByMode();
+  
+  setUser(e:Event ){
+      let ev=e as KeyboardEvent;
+      let elem=ev.target as HTMLInputElement;
+      this.user_id=elem.value
+      this.getByMode();
   }
 
-  setUser2(e: Event) {
-    this.user_id2 = e.toString();
+  setUser2(e:Event ){0
+    let ev=e as KeyboardEvent;
+    let elem=ev.target as HTMLInputElement;
+    this.user_id2=elem.value;
     this.getByMode();
   }
 
@@ -250,9 +258,6 @@ export class BarcodesComponent implements AfterViewInit, OnDestroy, OnInit {
     if (str == "Error") this.sortNotExist()
     if (str == "All") this.sortAll()
     if (str == "Ok") this.sortOK()
-    this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
-      console.log(dtInstance.data())
-    });
   }
 
   filterByOperate(id: number) {
@@ -470,11 +475,13 @@ export class BarcodesComponent implements AfterViewInit, OnDestroy, OnInit {
       searchfilters: this.searchfilters,
       csv: 0
     }
-    console.log(this.searchfilters.stockid)
+
+    console.log(this.http.params)
     this.http.sendPost().subscribe(async (result: any) => {
+      console.log(result);
       this.fromPagination = false;
       this.progressbar = false;
-      await (this.barcodes = result.data.barcodes)
+      this.barcodes = result.data.barcodes;
       let npages = result.data.links.pages;
 
       this.nextpage = result.data.links.end[0];
@@ -584,6 +591,7 @@ export class BarcodesComponent implements AfterViewInit, OnDestroy, OnInit {
       searchfilters: this.searchfilters,
       csv: 0
     }
+    console.log("searchfilters", this.http.params)
     this.http.sendPost().subscribe((result: any) => {
       this.fromPagination = false;
       this.progressbar = false;
@@ -615,7 +623,7 @@ export class BarcodesComponent implements AfterViewInit, OnDestroy, OnInit {
         barcode: this.add
       }
     }
-    console.log(this.http.params)
+
     if (this.mode == "compare") {
       this.http.params = {
         module: "barcodes",
@@ -623,8 +631,9 @@ export class BarcodesComponent implements AfterViewInit, OnDestroy, OnInit {
         barcode: this.add
       }
     }
-
+    console.log(this.add)
     this.http.sendPost().subscribe((result: any) => {
+      console.log(this.add)
       this.resetAdd();
       this.by = "last_scan";
       this.sort = 'desc'
@@ -648,6 +657,7 @@ export class BarcodesComponent implements AfterViewInit, OnDestroy, OnInit {
         barcode: barcode
       }
     }
+    console.log("barcode", barcode)
     this.http.sendPost().subscribe((result: any) => {
       this.getBarcode(barcode, i);
 
@@ -659,17 +669,16 @@ export class BarcodesComponent implements AfterViewInit, OnDestroy, OnInit {
         module: "barcodes",
         action: "getBarcode",
         id: barcode.id,
-
       }
-      this.http.sendPost().subscribe((result: any) => {
-        this.barcodes[i] = result.data.barcode;
 
+      this.http.sendPost().subscribe((result: any) => {
+        console.log(result.data.barcode)
+        this.barcodes[i] = result.data.barcode;
       })
     }
     if (this.mode == "compare") {
       this.getByMode();
     }
-
   }
   deleteBarcode(barcode) {
     if (this.mode == "all") {
@@ -703,7 +712,7 @@ export class BarcodesComponent implements AfterViewInit, OnDestroy, OnInit {
         from: "",
         to: "",
       }],
-      stockid:"",
+      stockid: "",
       barcodes: [{
         barcode: ""
       }],
@@ -919,15 +928,18 @@ export class BarcodesComponent implements AfterViewInit, OnDestroy, OnInit {
     if (this.user1columns == "1") this.user1columns = "";
     else this.user1columns = "1";
     this.searchfilters.user1columns = this.user1columns;
+    this.userList[1].checked = !this.userList[1].checked;
   };
   toggleUser2Columns() {
     if (this.user2columns == "1") this.user2columns = "";
     else this.user2columns = "1";
     this.searchfilters.user2columns = this.user2columns;
+    this.userList[2].checked = !this.userList[2].checked;
   };
   toggleAllColumns() {
     if (this.allcolumns == "1") this.allcolumns = "";
     else this.allcolumns = "1";
+    this.userList[0].checked = !this.userList[0].checked;
   };
   toggleOld() {
     if (this.hideold == "1") this.hideold = "";
@@ -945,19 +957,21 @@ export class BarcodesComponent implements AfterViewInit, OnDestroy, OnInit {
   resetMode2() { }
 
 
-  open(val: barcodesInterface){
+  open(val: barcodesInterface, num: number, mode: string) {
+    let sendata = [val, mode];
     const dialogRef = this.dialog.open(BarcodeModalComponent, {
       width: '450px',
-      data:val
+      data: sendata
     });
-
+    console.log("Original Data ===============>", val)
     dialogRef.afterClosed().subscribe(result => {
       this.add.flag = result.location
       if (result) {
-        alert(result)
+        console.log("result====>", result)
+        this.updateBarcode(result, num)
       }
       else {
-        alert(123)
+        this.getByMode()
       }
     });
   }

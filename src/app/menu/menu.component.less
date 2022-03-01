@@ -160,3 +160,44 @@
   color: #fff;
   background: #06b755;
 }
+
+.menu {
+  .navLink {
+    .tooltip {
+      visibility: hidden;
+      display: none;
+    }
+  }
+}
+
+.menu.active {
+  .navLink {
+    .mat-icon {
+      position: absolute !important;
+    }
+
+    .tooltip {
+      visibility: hidden;
+      width: 200px !important;
+      background-color: black;
+      color: #fff;
+      text-align: center;
+      border-radius: 6px;
+      padding: 5px;
+      position: relative;
+      z-index: 1;
+      overflow: visible !important;
+      font-size: 12px;
+      left: 60px;
+      top: -40px;
+      font-weight: 500;
+      display: block;
+    }
+  }
+
+  .navLink:hover {
+    .tooltip {
+      visibility: visible;
+    }
+  }
+}
